@@ -1,14 +1,14 @@
-Welcome to Debtly,
+# Welcome to Debtly,
 
 Requirements:
-- Python3
+- Python3  
   `sudo apt-get install python3`
-- Python3-venv
+- Python3-venv  
   `sudo apt-get install python3-venv`
-- Node.js
+- Node.js  
   `sudo snap install node --classic --channel=12`
 
-Note the below section was automatically generated, it has useful information on running React.
+*Note the below section was automatically generated, it has useful information on running React.*
 See [this article](https://blog.miguelgrinberg.com/post/how-to-create-a-react--flask-project) for more information on React and Flask together.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
