@@ -4,4 +4,4 @@ python3 -m venv venv
 # source virtual environment
 . venv/bin/activate
 # install required python libraries to environment
-pip install < requirements.txt
+pip install -r requirements.txt
