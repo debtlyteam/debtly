@@ -8,11 +8,11 @@ Requirements:
 - Node.js  
   `sudo snap install node --classic --channel=12`
   
-  OR
-  `sudo apt-get install nodejs`
-  To ensure the latest stable version is installed the following may need to be run as well:
-  `sudo apt-get install npm`
-  `sudo npm install n -g`
+  Node.js can also be installed using: \
+  `sudo apt-get install nodejs` \
+  To ensure the latest stable version is installed the following may need to be run as well: \
+  `sudo apt-get install npm` \
+  `sudo npm install n -g` \
   `sudo n stable`
 
 *Note the below section was automatically generated, it has useful information on running React.*  
