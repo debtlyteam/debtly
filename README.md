@@ -7,12 +7,13 @@ Requirements:
   `sudo apt-get install python3-venv`
 - Node.js  
   `sudo snap install node --classic --channel=12`
+  
   OR
-  'sudo apt-get install nodejs'
+  `sudo apt-get install nodejs`
   To ensure the latest stable version is installed the following may need to be run as well:
-  'sudo apt-get install npm'
-  'sudo npm install n -g'
-  'sudo n stable'
+  `sudo apt-get install npm`
+  `sudo npm install n -g`
+  `sudo n stable`
 
 *Note the below section was automatically generated, it has useful information on running React.*  
 See [this article](https://blog.miguelgrinberg.com/post/how-to-create-a-react--flask-project) for more information on React and Flask together.
