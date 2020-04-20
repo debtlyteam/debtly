@@ -3,6 +3,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import { connect } from 'react-redux'
 
 class Login extends Component {
   constructor(props){
@@ -49,4 +50,11 @@ class Login extends Component {
 const style = {
   margin: 15,
 };
-export default Login;
+
+function mapStateToProps(state, ownProps) {
+  return {
+    isLoggedIn: state.isLoggedIn
+  }
+}
+
+export default connect(mapStateToProps)(Login);
