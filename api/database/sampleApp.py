@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from mongoengine import *
+from mongoengine import connect, disconnect
 from pymongo.errors import DuplicateKeyError
 from users import Users
 
@@ -16,13 +16,9 @@ def get_users():
         if name is not None:
             if user.name == name:
                 data.append(user.to_json())
-            else:
-                pass
         elif email is not None:
             if user.email == email:
                 data.append(user.to_json())
-            else:
-                pass
         else:
             data.append(user.to_json())
     
