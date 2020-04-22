@@ -7,20 +7,10 @@ app = Flask(__name__)
 
 @app.route('/users', methods = ["GET"])
 def get_users():
-    name = request.args.get('Name')
-    email = request.args.get('Email')
-    password = request.args.get('Password')
-
     data = []
+
     for user in Users.objects:
-        if name is not None:
-            if user.name == name:
-                data.append(user.to_json())
-        elif email is not None:
-            if user.email == email:
-                data.append(user.to_json())
-        else:
-            data.append(user.to_json())
+        data.append(user.to_json())
     
     dataDict = {'users': data}
     
