@@ -10,7 +10,6 @@ class Loginscreen extends React.Component {
     var loginscreen = []
     loginscreen.push(<Login parentContext={this}/>)// appContext={this.props.parentContext}/>)
     var loginmessage = 'Not registered yet, Register Now'
-    console.log('asdas')
     this.setState({
       loginscreen: loginscreen,
       loginmessage: loginmessage
@@ -33,6 +32,11 @@ class Loginscreen extends React.Component {
     )
   }
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(Actions, dispatch)
+})
+
 const style = {
   margin: 15
 }

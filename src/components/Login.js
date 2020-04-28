@@ -4,18 +4,21 @@ import AppBar from 'material-ui/AppBar'
 import RaisedButton from 'material-ui/RaisedButton'
 import TextField from 'material-ui/TextField'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux';
+import * as Actions from '../components/Actions';
 
 class Login extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      username: '',
-      password: ''
+  constructor(props){
+  super(props);
+  this.actions = props.actions;
+  this.state={
+    username:'',
+    password:''
     }
   }
 
-  handleLoginButtonClick (event) {
-    console.log('Attempted login')
+  handleLoginButtonClick(event) {
+    this.actions.AttemptLogin([this.state.username, this.state.password])
   }
 
   render () {
@@ -57,4 +60,8 @@ function mapStateToProps (state, ownProps) {
   }
 }
 
-export default connect(mapStateToProps)(Login)
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(Actions, dispatch)
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

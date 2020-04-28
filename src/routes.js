@@ -5,6 +5,7 @@ import App from './App'
 import { Route, Switch } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
+import ProtectedRoute from './components/ProtectedRoute'
 
 const store = createStore(rootReducer)
 
@@ -14,12 +15,9 @@ export const Routes = () => {
       <Provider store={store}>
         <Switch>
           <Route path="/Login" component={Loginscreen}/>
-          <Route path="/" component={App}/>
+          <ProtectedRoute path="/" component={App}/>
         </Switch>
       </Provider>
     </div>
-  )
-}
-// <Route component={EnsureLoggedInContainer}>
-// <Route path="/" component={App}/>
-// </Route>
+  );
+};
