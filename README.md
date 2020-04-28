@@ -1,4 +1,4 @@
-# Welcome to Debtly,
+# Welcome to Debtly
 
 Requirements:
 - Python3  
@@ -14,6 +14,15 @@ Requirements:
   `sudo apt-get install npm` \
   `sudo npm install n -g` \
   `sudo n stable`
+
+# Linting and code formatting
+
+You can run ESLint from the root directory: \
+`npx eslint src/`
+
+
+
+---
 
 *Note the below section was automatically generated, it has useful information on running React.*  
 See [this article](https://blog.miguelgrinberg.com/post/how-to-create-a-react--flask-project) for more information on React and Flask together.
