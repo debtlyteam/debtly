@@ -1,60 +1,60 @@
-import React, { Component } from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBar from 'material-ui/AppBar';
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
+import React, { Component } from 'react'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import AppBar from 'material-ui/AppBar'
+import RaisedButton from 'material-ui/RaisedButton'
+import TextField from 'material-ui/TextField'
 import { connect } from 'react-redux'
 
 class Login extends Component {
-  constructor(props){
-  super(props);
-  this.state={
-    username:'',
-    password:''
+  constructor (props) {
+    super(props)
+    this.state = {
+      username: '',
+      password: ''
     }
   }
 
-  handleLoginButtonClick(event) {
-    console.log("Attempted login");
+  handleLoginButtonClick (event) {
+    console.log('Attempted login')
   }
 
-  render() {
+  render () {
     return (
       <div>
         <MuiThemeProvider>
           <div>
-          <AppBar
-            title="Login"
-          />
-          <TextField
-            hintText="Enter your Username"
-            floatingLabelText="Username"
-            onChange = {(event,newValue) => this.setState({username:newValue})}
+            <AppBar
+              title="Login"
             />
-          <br/>
+            <TextField
+              hintText="Enter your Username"
+              floatingLabelText="Username"
+              onChange = {(event, newValue) => this.setState({ username: newValue })}
+            />
+            <br/>
             <TextField
               type="password"
               hintText="Enter your Password"
               floatingLabelText="Password"
-              onChange = {(event,newValue) => this.setState({password:newValue})}
+              onChange = {(event, newValue) => this.setState({ password: newValue })}
             />
-          <br/>
-          <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleLoginButtonClick(event)}/>
-        </div>
+            <br/>
+            <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleLoginButtonClick(event)}/>
+          </div>
         </MuiThemeProvider>
       </div>
-    );
+    )
   }
 }
 
 const style = {
-  margin: 15,
-};
+  margin: 15
+}
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps (state, ownProps) {
   return {
     isLoggedIn: state.isLoggedIn
   }
 }
 
-export default connect(mapStateToProps)(Login);
+export default connect(mapStateToProps)(Login)
