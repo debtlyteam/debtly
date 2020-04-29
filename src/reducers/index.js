@@ -10,7 +10,8 @@ const loginReducer = (loginState = {}, action) => {
       loginState.isLoggedIn = false;
       break;
   }
+  console.log(loginState)
   return loginState
 }
 
-export default combineReducers({ loginReducer })
+export default combineReducers({ login : loginReducer })

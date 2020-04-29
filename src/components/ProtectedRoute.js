@@ -9,12 +9,14 @@ import { Redirect } from "react-router";
 class ProtectedRoute extends React.Component {
   constructor(props) {
     super(props)
+    console.log(props.isLoggedIn)
     this.state = {
       isLoggedIn : props.isLoggedIn
     }
   }
 
   render() {
+    console.log(this.state.isLoggedIn)
     if(this.state.isLoggedIn === true) {
       return <Component {...this.props} />
     }
@@ -25,8 +27,9 @@ class ProtectedRoute extends React.Component {
 }
 
 function mapStateToProps(state, ownProps) {
+  let loginState = state.login
   return {
-    isLoggedIn: state.loggedIn,
+    isLoggedIn: loginState.isLoggedIn,
   }
 }
 

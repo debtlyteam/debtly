@@ -6,20 +6,23 @@ import TextField from 'material-ui/TextField'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
 import * as Actions from '../components/Actions';
+import { withRouter } from 'react-router'
+
 
 class Login extends Component {
   constructor(props){
-  super(props);
-  this.actions = props.actions;
-  this.state={
-    username:'',
-    password:''
+    super(props);
+    this.actions = props.actions;
+    this.state={
+      username:'',
+      password:''
     }
   }
 
   handleLoginButtonClick(event) {
-    // we can do login attempt here or in the reducer
+    // we can do backend login attempt here or in the reducer, although it feels like this is a better place for it since the reducer should primarily take care of state changes
     this.actions.AttemptLogin({username: this.state.username, password: this.state.password})
+    this.props.history.push('/')
   }
 
   render () {
@@ -57,8 +60,9 @@ const style = {
 }
 
 function mapStateToProps (state, ownProps) {
+  let loginState = state.login
   return {
-    isLoggedIn: state.isLoggedIn
+    isLoggedIn: loginState.isLoggedIn,
   }
 }
 
@@ -66,4 +70,4 @@ const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(Actions, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login));
