@@ -18,7 +18,8 @@ class Login extends Component {
   }
 
   handleLoginButtonClick(event) {
-    this.actions.AttemptLogin([this.state.username, this.state.password])
+    // we can do login attempt here or in the reducer
+    this.actions.AttemptLogin({username: this.state.username, password: this.state.password})
   }
 
   render () {
@@ -29,17 +30,18 @@ class Login extends Component {
             <AppBar
               title="Login"
             />
-            <TextField
-              hintText="Enter your Username"
-              floatingLabelText="Username"
-              onChange = {(event, newValue) => this.setState({ username: newValue })}
+          <TextField
+            hintText="Enter your Username"
+            floatingLabelText="Username"
+            onChange = {(event) => {this.setState({username:event.target.value})
+        }}
             />
             <br/>
             <TextField
               type="password"
               hintText="Enter your Password"
               floatingLabelText="Password"
-              onChange = {(event, newValue) => this.setState({ password: newValue })}
+              onChange = {(event) => this.setState({password:event.target.value})}
             />
             <br/>
             <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleLoginButtonClick(event)}/>
