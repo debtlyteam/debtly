@@ -6,33 +6,22 @@ import { Route, Switch } from 'react-router-dom'
 // const ProtectedRoute = ({ component : Component, ...rest}) => (
 
 // )
+const ProtectedRoute = (props) => (
+  <Route {...props.isLoggedIn} render={() => {
+    if(props.isLoggedIn === true) {
+          return (
+            <div>{props.children}</div>
+            )
+        }
+        else {
+          return (
+              <Redirect to='/login'/>
+          )
+        }
+  }} />
+)
 
-class ProtectedRoute extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      isLoggedIn : props.isLoggedIn
-    }
-  }
-
-  render() {
-    if(this.state.isLoggedIn === true) {
-      console.log(this.props)
-      return (
-        <Route>
-          <Component {...this.props} />
-        </Route>
-        )
-    }
-    else {
-      return (
-          <Redirect to='/login'/>
-      )
-    }
-  }
-}
-
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
   let loginState = state.login
   return {
     isLoggedIn: loginState.isLoggedIn,
