@@ -1,5 +1,6 @@
 import React from 'react'
 import Login from '../components/Login'
+import PropTypes from 'prop-types'
 
 class Loginscreen extends React.Component {
   constructor (props) {
