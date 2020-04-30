@@ -4,18 +4,33 @@ import AppBar from 'material-ui/AppBar'
 import RaisedButton from 'material-ui/RaisedButton'
 import TextField from 'material-ui/TextField'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import * as Actions from '../components/Actions'
+import { withRouter } from 'react-router'
+import PropTypes from 'prop-types'
 
 class Login extends Component {
   constructor (props) {
     super(props)
+    console.log(props)
+    this.actions = props.actions
     this.state = {
       username: '',
       password: ''
     }
   }
 
+  static get propTypes () {
+    return {
+      actions: PropTypes.object,
+      history: PropTypes.object
+    }
+  }
+
   handleLoginButtonClick (event) {
-    console.log('Attempted login')
+    // we can do backend login attempt here or in the reducer, although it feels like this is a better place for it since the reducer should primarily take care of state changes
+    this.actions.AttemptLogin({ username: this.state.username, password: this.state.password })
+    this.props.history.push('/')
   }
 
   render () {
@@ -29,14 +44,16 @@ class Login extends Component {
             <TextField
               hintText="Enter your Username"
               floatingLabelText="Username"
-              onChange = {(event, newValue) => this.setState({ username: newValue })}
+              onChange = {(event) => {
+                this.setState({ username: event.target.value })
+              }}
             />
             <br/>
             <TextField
               type="password"
               hintText="Enter your Password"
               floatingLabelText="Password"
-              onChange = {(event, newValue) => this.setState({ password: newValue })}
+              onChange = {(event) => this.setState({ password: event.target.value })}
             />
             <br/>
             <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleLoginButtonClick(event)}/>
@@ -52,9 +69,14 @@ const style = {
 }
 
 function mapStateToProps (state, ownProps) {
+  const loginState = state.login
   return {
-    isLoggedIn: state.isLoggedIn
+    isLoggedIn: loginState.isLoggedIn
   }
 }
 
-export default connect(mapStateToProps)(Login)
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(Actions, dispatch)
+})
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login))
