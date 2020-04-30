@@ -15,7 +15,7 @@ export const Routes = () => {
       <Provider store={store}>
         <Switch>
           <Route path="/Login" component={Loginscreen}/>
-          <ProtectedRoute path="/" component={Loginscreen}/>
+          <ProtectedRoute path="/" component={App}/>
         </Switch>
       </Provider>
     </div>

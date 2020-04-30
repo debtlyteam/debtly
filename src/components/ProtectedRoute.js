@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import { Redirect } from "react-router";
+import { Route, Switch } from 'react-router-dom'
 
 // const ProtectedRoute = ({ component : Component, ...rest}) => (
 
@@ -9,19 +10,24 @@ import { Redirect } from "react-router";
 class ProtectedRoute extends React.Component {
   constructor(props) {
     super(props)
-    console.log(props.isLoggedIn)
     this.state = {
       isLoggedIn : props.isLoggedIn
     }
   }
 
   render() {
-    console.log(this.state.isLoggedIn)
     if(this.state.isLoggedIn === true) {
-      return <Component {...this.props} />
+      console.log(this.props)
+      return (
+        <Route>
+          <Component {...this.props} />
+        </Route>
+        )
     }
     else {
-      return <Redirect to='/login'/>
+      return (
+          <Redirect to='/login'/>
+      )
     }
   }
 }
