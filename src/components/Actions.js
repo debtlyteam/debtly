@@ -1,7 +1,8 @@
 
-export const AttemptLogin = ({username, password}) =>
-(
-  {
-  type : 'LOGIN',
-  username,
-  password})
+export const AttemptLogin = ({ username, password }) =>
+  (
+    {
+      type: 'LOGIN',
+      username,
+      password
+    })

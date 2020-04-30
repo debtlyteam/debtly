@@ -15,9 +15,11 @@ export const Routes = () => {
       <Provider store={store}>
         <Switch>
           <Route path="/Login" component={Loginscreen}/>
-          <ProtectedRoute path="/"><App/></ProtectedRoute>
+          <ProtectedRoute path="/">
+            <App/>
+          </ProtectedRoute>
         </Switch>
       </Provider>
     </div>
-  );
-};
+  )
+}

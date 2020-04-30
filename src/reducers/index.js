@@ -2,16 +2,15 @@ import { combineReducers } from 'redux'
 
 const loginReducer = (loginState = {}, action) => {
   // fill me out
-  switch(action.type) {
+  switch (action.type) {
     case 'LOGIN':
-      loginState.isLoggedIn = true;
-      break;
+      loginState.isLoggedIn = true
+      break
     default:
-      loginState.isLoggedIn = false;
-      break;
+      loginState.isLoggedIn = false
+      break
   }
-  console.log(loginState)
   return loginState
 }
 
-export default combineReducers({ login : loginReducer })
+export default combineReducers({ login: loginReducer })
