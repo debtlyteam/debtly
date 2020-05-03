@@ -1,7 +1,6 @@
 from flask import Flask, request, jsonify
-from mongoengine import connect, disconnect
-from pymongo.errors import DuplicateKeyError
-from users import Users
+from templates.users import Users
+import mongoengine
 
 app = Flask(__name__)
 
@@ -25,10 +24,10 @@ def create_users():
 
     try:
         data.save()
-    except ValidationError as e:
+    except mongoengine.NotUniqueError as e:
         return {'Error': str(e)}, 400
-    except DuplicateKeyError and NotUniqueError as e:
-        return{'Error': str(e)}, 400
+    except mongoengine.ValidationError as e:
+        return {'Error': str(e)}, 400
 
     return {'success':'success!!!'}, 200
 
@@ -49,6 +48,6 @@ def delete_users():
     return {'Success': 'User has been deleted'}
 
 if __name__ == '__main__':
-    connect('test') #, host='mongodb://localhost', port = 27017)
+    mongoengine.connect('test') #, host='mongodb://localhost', port = 27017)
     app.run()
 
