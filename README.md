@@ -14,6 +14,11 @@ Requirements:
   `sudo apt-get install npm` \
   `sudo npm install n -g` \
   `sudo n stable`
+  
+# Debtly Python package
+
+Run the setup script in the root directory to install the debtly package: \
+`source .setup`
 
 # Linting and code formatting
 
