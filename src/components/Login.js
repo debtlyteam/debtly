@@ -1,22 +1,61 @@
 import React, { Component } from 'react'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import AppBar from 'material-ui/AppBar'
-import RaisedButton from 'material-ui/RaisedButton'
-import TextField from 'material-ui/TextField'
+import { Button, TextField, ThemeProvider, CssBaseline, Container, withStyles, Avatar, Typography, Box, Collapse, Icon, Grid, Fade, IconButton } from '@material-ui/core'
+import LockOpenIcon from '@material-ui/icons/LockOpenOutlined'
+import CloseIcon from '@material-ui/icons/Close'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as Actions from '../components/Actions'
 import { withRouter } from 'react-router'
 import PropTypes from 'prop-types'
+import theme from './Theme'
+
+const styles = theme => ({
+  header: {
+    display: 'flex'
+  },
+  paper: {
+    marginTop: theme.spacing(3),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    alignItems: 'center',
+    // update my colour
+    backgroundColor: theme.palette.primary.main
+  },
+  form: {
+    width: '100%',
+    marginTop: theme.spacing(1)
+  },
+  login: {
+    margin: theme.spacing(0.5, 0),
+    marginTop: 10
+  },
+  register: {
+    margin: theme.spacing(0.5, 0)
+  },
+  box: {
+    borderRadius: 10,
+    boxShadow: '2px 2px 6px',
+    padding: 50,
+    marginTop: 50,
+    borderColor: theme.palette.primary.main
+  },
+  textEntry: {
+    margin: '6px 0px',
+  }
+})
 
 class Login extends Component {
   constructor (props) {
     super(props)
-    console.log(props)
     this.actions = props.actions
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      tryRegister: false
     }
   }
 
@@ -33,39 +72,102 @@ class Login extends Component {
     this.props.history.push('/')
   }
 
+  // TODO: what's the deal with button onSubmit?
+  // TODO: move theme to top level app/router/index
   render () {
+    const { classes } = this.props
     return (
-      <div>
-        <MuiThemeProvider>
-          <div>
-            <AppBar
-              title="Login"
-            />
-            <TextField
-              hintText="Enter your Username"
-              floatingLabelText="Username"
-              onChange = {(event) => {
-                this.setState({ username: event.target.value })
-              }}
-            />
-            <br/>
-            <TextField
-              type="password"
-              hintText="Enter your Password"
-              floatingLabelText="Password"
-              onChange = {(event) => this.setState({ password: event.target.value })}
-            />
-            <br/>
-            <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleLoginButtonClick(event)}/>
-          </div>
-        </MuiThemeProvider>
-      </div>
+      <ThemeProvider theme={theme}>
+        <Container component='main' maxWidth='xs'>
+          <Box className={classes.box}
+            border={1}>
+            <CssBaseline/>
+            <Grid className={classes.header}
+              direction='row-reverse'>
+              <Fade in={this.state.tryRegister}>
+              <IconButton
+                onClick={(e) => { this.setState({tryRegister : false}) }}
+                >
+                <CloseIcon/>
+              </IconButton>
+              </Fade>
+            </Grid>
+
+            <div className={classes.paper}>
+              <Avatar className={classes.avatar}>
+                <LockOpenIcon/>
+              </Avatar>
+              <Typography component='h1' variant='h5'>
+                {this.state.tryRegister ? 'Register' : 'Login'}
+              </Typography>
+              <form className={classes.form}
+                onSubmit={(e) => {
+                  this.handleLoginButtonClick(e)
+                }}>
+                <Collapse in={this.state.tryRegister}>
+                  <TextField
+                    className={classes.textEntry}
+                    variant='outlined'
+                    margin='normal'
+                    required
+                    fullWidth
+                    id='name'
+                    label='Enter your Name'
+                  />
+                </Collapse>
+                <TextField
+                    className={classes.textEntry}
+                  variant='outlined'
+                  required
+                  fullWidth
+                  id='email'
+                  label="Enter your Email"
+                  name='email'
+                  autoComplete='email'
+                  autoFocus
+                  onChange = {(event) => {
+                    this.setState({ username: event.target.value })
+                  }}
+                />
+                <TextField
+                  className={classes.textEntry}
+                  variant='outlined'
+                  required
+                  fullWidth
+                  id='password'
+                  label='Enter your Password'
+                  name='password'
+                  autoComplete='password'
+                  onChange = {(event) => {
+                    this.setState({ password: event.target.value })
+                  }}
+                />
+                <Button
+                  className={classes.login}
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                >
+            Login
+                </Button>
+                <Button
+                  className={classes.register}
+                  type="button"
+                  fullWidth
+                  variant="outlined"
+                  color="primary"
+                  onClick={(e) => { this.setState({ tryRegister: true }) }}
+                >
+            Register
+                </Button>
+              </form>
+            </div>
+          </Box>
+        </Container>
+      </ThemeProvider>
     )
   }
-}
-
-const style = {
-  margin: 15
 }
 
 function mapStateToProps (state, ownProps) {
@@ -79,4 +181,4 @@ const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(Actions, dispatch)
 })
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login))
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)((Login))))
