@@ -1,10 +1,7 @@
 from flask import Flask
+from routes/user import userRoutes
+
 app = Flask(__name__)
 
-@app.route('/')
-def mainPage():
-    return 'Debtly'
+app.register_blueprint(userRoutes)
 
-@app.route('/example')
-def example():
-    return { 'message' : 'Welcome to Debtly' }
