@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from templates.users import Users
+from database.templates.users import Users
 import mongoengine
 
 app = Flask(__name__)

@@ -1,3 +1,10 @@
+# general 
+*.swp
+
+# python
+*.pyc
+*.egg-info
+
 # dependencies
 /node_modules
 /.pnp

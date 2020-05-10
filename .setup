@@ -1,0 +1,7 @@
+#!/bin/bash
+
+echo Installing Debtly package...
+cd api
+pip install -e .
+cd ..
+
