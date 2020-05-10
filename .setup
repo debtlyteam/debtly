@@ -1,7 +1,22 @@
 #!/bin/bash
 
-echo Installing Debtly package...
 cd api
+
+# if virtual environment is not there, create one
+if [[ ! -f venv/bin/activate ]]
+then
+    echo "Creating virtual environment debtly/api/venv..."
+    python3 -m venv venv
+fi
+
+echo "Activating virtual environment..."
+source venv/bin/activate
+
+echo "Updating requirements..."
+pip install -r requirements.txt | grep -v "Requirement already satisfied"
+
+echo "Installing Debtly package..."
 pip install -e .
+
 cd ..
 
