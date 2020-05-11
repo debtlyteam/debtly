@@ -1,11 +1,19 @@
 import { createMuiTheme } from '@material-ui/core'
-import { indigo, blueGrey } from '@material-ui/core/colors'
 
 const mainTheme = createMuiTheme({
   palette: {
-    primary: { main: '#216869' },
-    secondary: { main: '#FC9F5B' }
-  }
+    primary: {
+      main: '#216869',
+
+      // main: '#0044ff',
+    },
+    secondary: {
+      // main: '#FC9F5B',
+      light: '#0066ff',
+      main: '#0044ff',
+     },
+  },
+  spacing: 4,
 })
 
 export default mainTheme
