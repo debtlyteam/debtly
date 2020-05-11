@@ -3,8 +3,8 @@ import { indigo, blueGrey } from '@material-ui/core/colors'
 
 const mainTheme = createMuiTheme({
   palette: {
-    primary: { main: '#01579B' },
-    secondary: { main: '#212121' }
+    primary: { main: '#216869' },
+    secondary: { main: '#FC9F5B' }
   }
 })
 

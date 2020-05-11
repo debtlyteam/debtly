@@ -1,15 +1,19 @@
 import React, { Component } from 'react'
-import { Button, TextField, ThemeProvider, CssBaseline, Container, withStyles, Avatar, Typography, Box, Collapse, Icon, Grid, Fade, IconButton } from '@material-ui/core'
+import { Button, TextField, ThemeProvider, CssBaseline, Container, withStyles, Avatar, Typography, Box, Collapse, Icon, Grid, Fade, IconButton, FormControl, InputLabel, Input, InputAdornment, OutlinedInput } from '@material-ui/core'
 import LockOpenIcon from '@material-ui/icons/LockOpenOutlined'
 import CloseIcon from '@material-ui/icons/Close'
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as Actions from '../components/Actions'
 import { withRouter } from 'react-router'
 import PropTypes from 'prop-types'
 import theme from './Theme'
+import clsx from 'clsx'
 
-const styles = theme => ({
+const styles = theme => (
+  {
   header: {
     display: 'flex'
   },
@@ -33,6 +37,9 @@ const styles = theme => ({
     margin: theme.spacing(0.5, 0),
     marginTop: 10
   },
+  margin :{
+    margin: theme.spacing(1),
+  },
   register: {
     margin: theme.spacing(0.5, 0)
   },
@@ -55,7 +62,8 @@ class Login extends Component {
     this.state = {
       username: '',
       password: '',
-      tryRegister: false
+      tryRegister: false,
+      showPassword: false,
     }
   }
 
@@ -76,6 +84,7 @@ class Login extends Component {
   // TODO: move theme to top level app/router/index
   render () {
     const { classes } = this.props
+    console.log(theme)
     return (
       <ThemeProvider theme={theme}>
         <Container component='main' maxWidth='xs'>
@@ -129,6 +138,33 @@ class Login extends Component {
                     this.setState({ username: event.target.value })
                   }}
                 />
+                <FormControl
+                // className={clsx(classes.margin, classes.textEntry)}
+                >
+                  <InputLabel htmlFor="outlined-adornment-password">
+                    Password
+                  </InputLabel>
+                  <OutlinedInput
+                    className={classes.textEntry}
+                    id="outlined-adornment-password"
+                    type={this.state.showPassword ? 'text' : 'password'}
+            // value={this.state.password}
+            onChange={(event) => {
+                    this.setState({ password: event.target.value })
+            }}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  // onClick={handleClickShowPassword}
+                  // onMouseDown={handleMouseDownPassword}
+                >
+                  {this.state.showPassword ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            }
+                  />
+                </FormControl>
                 <TextField
                   className={classes.textEntry}
                   variant='outlined'
@@ -140,6 +176,14 @@ class Login extends Component {
                   autoComplete='password'
                   onChange = {(event) => {
                     this.setState({ password: event.target.value })
+                  }}
+                  InputProps={{
+                    endAdornment:
+                      <IconButton
+                        aria-label="toggle password visibility"
+                      >
+
+                      </IconButton>
                   }}
                 />
                 <Button
