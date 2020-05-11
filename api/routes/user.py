@@ -25,8 +25,8 @@ def register():
     json = request.json()
     user = User(
             json['email'],
-            firstName = json['firstName'],
-            lastName = json['lastName'],
+            first_name = json['firstName'],
+            last_name = json['lastName'],
             password = hash_password(json['password']))
     if add_user(user):
         return HTTPStatus.OK
