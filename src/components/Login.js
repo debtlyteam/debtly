@@ -14,7 +14,7 @@ import * as Actions from '../components/Actions'
 import { withRouter } from 'react-router'
 import PropTypes from 'prop-types'
 import theme from './Theme'
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles'
 
 const styles = theme => (
   {
@@ -26,7 +26,7 @@ const styles = theme => (
     },
     avatar: {
       margin: theme.spacing(1),
-      alignItems: 'center',
+      alignItems: 'center'
     },
     form: {
       width: '100%',
@@ -110,7 +110,7 @@ class Login extends Component {
             <Box
               display='flex'
               flexDirection='row'
-              >
+            >
               <Fade in={this.state.tryRegister}>
                 <IconButton
                   onClick={(e) => { this.setState({ tryRegister: false }) }}
