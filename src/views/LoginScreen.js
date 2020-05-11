@@ -7,18 +7,10 @@ class Loginscreen extends React.Component {
     super(props)
     this.actions = props.actions
   }
-  // we need to replace this, but I suspect with the addition of our new redux usage we want to revamp this a lot anyway
-  /* eslint-disable */
-  UNSAFE_componentWillMount () {
-    var loginmessage = "Not registered yet, Register Now";
-    this.setState({
-      loginmessage: loginmessage
-    })
-  }
 
   static get propTypes () {
     return {
-      actions: PropTypes.object,
+      actions: PropTypes.object
     }
   }
 
@@ -27,7 +19,7 @@ class Loginscreen extends React.Component {
       <div className="loginscreen">
         <Login/>
         <div>
-          {this.state.loginmessage}
+
         </div>
       </div>
     )
