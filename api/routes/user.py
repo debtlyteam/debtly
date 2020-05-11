@@ -18,7 +18,6 @@ def login():
     else:
         return HTTPStatus.OK
 
-
 # Register Route
 @userRoutes.route('/register', methods = ['POST'])
 def register():
