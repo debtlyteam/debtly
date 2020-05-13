@@ -10,27 +10,40 @@ userRoutes = Blueprint('user_routes', __name__)
 # Login Route
 @userRoutes.route('/login', methods = ['POST'])
 def login():
-    json = request.json()
-    if json.has_key('email') and json.has_key('password'):
+    ret_data = {}
+    json = request.json
+    if not json:
+        return ret_data, HTTPStatus.BAD_REQUEST
+
+    # TODO: nicer verification of a valid request
+    if 'email' in json and 'password' in json:
         user = get_user(json['email'])
-        isLoggedIn = verify_password(user.password, json['password'])
-        return { 'isLoggedIn': isLoggedIn }
-    else:
-        return HTTPStatus.OK
+        if user:
+            ret_data['isLoggedIn'] = verify_password(user.password, json['password'])
+
+            return ret_data
+        return ret_data, HTTPStatus.OK
+
+    return ret_data, HTTPStatus.BAD_REQUEST
+
 
 # Register Route
 @userRoutes.route('/register', methods = ['POST'])
 def register():
-    json = request.json()
-    user = User(
-            json['email'],
-            first_name = json['firstName'],
-            last_name = json['lastName'],
-            password = hash_password(json['password']))
-    if add_user(user):
-        return HTTPStatus.OK
-    else:
-        return HTTPStatus.BAD_REQUEST
+    ret_data = {}
+    json = request.json
+    if not json:
+        return ret_data, HTTPStatus.BAD_REQUEST
 
+    # TODO: nicer verification of a valid request
+    if 'email' in json and 'password' in json and 'name' in json:
+        user = User(
+                json['email'],
+                first_name = json['name'],
+                password = hash_password(json['password']))
+        if add_user(user):
+            return ret_data, HTTPStatus.OK
+        else:
+            print('add_user failed!')
 
-
+    return ret_data, HTTPStatus.BAD_REQUEST
