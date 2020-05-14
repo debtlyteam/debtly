@@ -1,6 +1,6 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, session
 from http import HTTPStatus
-from database.interface import add_user, get_user
+from database.interface import add_user, get_user, get_user_id
 from utils.user import User
 from utils.password import hash_password, verify_password
 
@@ -18,10 +18,10 @@ def login():
     # TODO: nicer verification of a valid request
     if 'email' in json and 'password' in json:
         user = get_user(json['email'])
-        if user:
-            ret_data['isLoggedIn'] = verify_password(user.password, json['password'])
-
-            return ret_data
+        ret_data['isLoggedIn'] = False
+        if user and verify_password(user.password, json['password']):
+            ret_data['isLoggedIn'] = True
+            session['user'] = get_user_id(json['email'])
         return ret_data, HTTPStatus.OK
 
     return ret_data, HTTPStatus.BAD_REQUEST
@@ -41,9 +41,15 @@ def register():
                 json['email'],
                 first_name = json['name'],
                 password = hash_password(json['password']))
-        if add_user(user):
-            return ret_data, HTTPStatus.OK
-        else:
-            print('add_user failed!')
+        ret_data['isRegistered'] = add_user(user)
+        return ret_data, HTTPStatus.OK
 
     return ret_data, HTTPStatus.BAD_REQUEST
+
+
+# Authentication Route
+@userRoutes.route('/authenticate', methods = ['GET'])
+def authenticate():
+    ret_data = {}
+    ret_data['isLoggedIn'] = 'user' in session
+    return ret_data, HTTPStatus.OK

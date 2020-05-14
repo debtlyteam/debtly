@@ -97,7 +97,7 @@ class Login extends Component {
     }
 
     fetch('/login', loginData)
-      .then(res => res.json())
+      .then(res => res.json()) // TODO: check res.ok!!!
       .then(data => { this.processLogin(data.isLoggedIn) })
   }
 
@@ -124,7 +124,8 @@ class Login extends Component {
     }
 
     fetch('/register', registerData)
-      .then(res => { this.processRegister(res.ok) })
+      .then(res => res.json()) // TODO: check res.ok!!!
+      .then(data => { this.processRegister(data.isRegistered) })
   }
 
   processRegister (isRegistered) {
@@ -134,7 +135,6 @@ class Login extends Component {
     }
   }
 
-  // TODO: what's the deal with button onSubmit?
   // TODO: move theme to top level app/router/index
   render () {
     const { classes } = this.props
