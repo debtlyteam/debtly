@@ -2,7 +2,6 @@ bcrypt==3.1.7
 cachelib==0.1
 cffi==1.14.0
 click==7.1.1
--e git+git@github.com:andrewjrae/debtly.git@a8737b97b000e9b403e9e57c9c11d7bc3b972a9d#egg=debtly&subdirectory=api
 Flask==1.1.2
 Flask-Bcrypt==0.7.1
 flask-mongoengine==0.9.5
