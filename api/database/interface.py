@@ -57,3 +57,17 @@ def delete_user(email):
         return True
     
     return False
+
+# Get the id number to identify a user
+# Expects the user's email
+# returns the id number if the user with 'email' exists and None otherwise
+def get_user_id(email):
+    docs = UserDoc.objects(email = email)
+
+    if len(docs) == 1:
+        user = docs[0]
+
+        return user.id
+
+    return None
+
