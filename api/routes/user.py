@@ -19,7 +19,7 @@ def login():
     if 'email' in json and 'password' in json:
         user = get_user(json['email'])
         if user and verify_password(user.password, json['password']):
-            session['user'] = get_user_id(json['email'])
+            session['user'] = str(get_user_id(json['email']))
             ret_data['token'] = session['user']
             return ret_data, HTTPStatus.OK
     return ret_data, HTTPStatus.UNAUTHORIZED

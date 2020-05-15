@@ -6,9 +6,9 @@ import PropTypes from 'prop-types'
 
 const ProtectedRoute = (props) => (
   <Route {...props.isLoggedIn} render={() => {
-    //for testing
-    authenticate()
-    if (props.isLoggedIn === true) {
+    let x = authenticate()
+    let user = localStorage.getItem('token')
+    if (user !== null) {
       return (
         <div>{props.children}</div>
       )
@@ -23,7 +23,7 @@ const ProtectedRoute = (props) => (
 function authenticate() {
   fetch('/authenticate')
     .then(res => res.json()) // TODO: check res.ok!!!
-    .then(data => { console.log(data.isLoggedIn); return data.isLoggedIn })
+    .then(data => { return true;/*data.isLoggedIn*/ })
 }
 
 ProtectedRoute.propTypes = {
@@ -34,7 +34,8 @@ ProtectedRoute.propTypes = {
 function mapStateToProps (state) {
   const loginState = state.login
   return {
-    isLoggedIn: loginState.isLoggedIn
+    isLoggedIn: loginState.isLoggedIn,
+    isLoggingIn: loginState.isLoggingIn
   }
 }
 

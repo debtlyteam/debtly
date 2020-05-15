@@ -98,7 +98,7 @@ class Login extends Component {
 
     fetch('/login', loginData)
       .then(res => res.json()) // TODO: check res.ok!!!
-      .then(data => { this.processLogin(data.isLoggedIn) })
+      .then(data => {localStorage.setItem('token', data.token); /*this.processLogin(data.isLoggedIn)*/ })
   }
 
   processLogin (isLoggedIn) {
