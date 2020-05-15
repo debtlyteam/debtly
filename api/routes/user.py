@@ -18,13 +18,11 @@ def login():
     # TODO: nicer verification of a valid request
     if 'email' in json and 'password' in json:
         user = get_user(json['email'])
-        ret_data['isLoggedIn'] = False
         if user and verify_password(user.password, json['password']):
-            ret_data['isLoggedIn'] = True
             session['user'] = get_user_id(json['email'])
-        return ret_data, HTTPStatus.OK
-
-    return ret_data, HTTPStatus.BAD_REQUEST
+            ret_data['token'] = session['user']
+            return ret_data, HTTPStatus.OK
+    return ret_data, HTTPStatus.UNAUTHORIZED
 
 
 # Register Route
@@ -51,5 +49,8 @@ def register():
 @userRoutes.route('/authenticate', methods = ['GET'])
 def authenticate():
     ret_data = {}
-    ret_data['isLoggedIn'] = 'user' in session
-    return ret_data, HTTPStatus.OK
+    if 'user' in session:
+        ret_data['token'] = session['user']
+        return ret_data, HTTPStatus.OK
+    else:
+        return ret_data, HTTPStatus.UNAUTHORIZED
