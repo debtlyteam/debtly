@@ -49,6 +49,7 @@ def register():
 @userRoutes.route('/authenticate', methods = ['GET'])
 def authenticate():
     ret_data = {}
+    ret_data['sid'] = session.sid # TODO: remove this line once auth is fully working
     if 'user' in session:
         ret_data['token'] = session['user']
         return ret_data, HTTPStatus.OK
