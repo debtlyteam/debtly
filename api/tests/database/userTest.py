@@ -13,10 +13,14 @@ print("Adding User...")
 print(add_user(user))
 
 print("Getting User email...")
-print(get_user(user.email).email)
+print(get_user(email = user.email).email)
 
 print("Getting User ID Number...")
-print(get_user_id(user.email))
+id_num = get_user_id(user.email)
+print(id_num)
 
-print("Deleting user")
+print("Getting User by ID...")
+print(get_user(id = id_num).email)
+
+print("Deleting user...")
 print(delete_user(user.email))

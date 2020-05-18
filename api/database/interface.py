@@ -1,7 +1,7 @@
 # Interface for common operations on the Mongo Database
 
 from utils.user import User
-from database.templates.users import Users as UserDoc
+from database.templates import Users as UserDoc
 import mongoengine
 
 # Adds a user to the database
@@ -23,14 +23,22 @@ def add_user(new_user):
 
     return True
 
-# Retrieve a user from the data base using an email as the identifier
-# Returns a user object the user exists and None otherwise
-def get_user(email):
-    # Gets a tuple of UserDocs that have the same email as the argument given.
-    # UserDocs enforce a unique email, so a maximum of 1 user should be returned
-    docs = UserDoc.objects(email = email)
+#
+# Retrieve a user from the database
+# Set the email argument to get a user by email, or the id argument to get a user by id
+#   e.g: get_user( email = "you@example.com")
+#        get_user( id = 123456 )
+# Returns a user object if the user exists and None otherwise
+#
+def get_user(**kwargs):
+    docs = None
 
-    if len(docs) == 1:
+    if "email" in kwargs:
+        docs = UserDoc.objects(email = kwargs["email"])
+    elif "id" in kwargs:
+        docs = UserDoc.objects(id = kwargs["id"])
+
+    if docs and len(docs) == 1:
         user = docs[0]
 
         return User(
