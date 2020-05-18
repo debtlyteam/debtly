@@ -1,8 +1,9 @@
 # Interface for common operations on the Mongo Database
 
 from utils.user import User
-from database.templates.users import Users as UserDoc
+from database.templates import Users as UserDoc
 import mongoengine
+
 
 # Adds a user to the database
 #
@@ -19,55 +20,60 @@ def add_user(new_user):
     try:
         doc.save(force_insert = True)
     except Exception as e:
+        print(e)    # TODO: Properly log errors
         return False
 
     return True
 
-# Retrieve a user from the data base using an email as the identifier
-# Returns a user object the user exists and None otherwise
-def get_user(email):
-    # Gets a tuple of UserDocs that have the same email as the argument given.
-    # UserDocs enforce a unique email, so a maximum of 1 user should be returned
-    docs = UserDoc.objects(email = email)
 
-    if len(docs) == 1:
+#
+# Retrieve a user from the database
+# Set the email argument to get a user by email, or the id argument to get a user by id
+#   e.g: get_user( email = "you@example.com")
+#        get_user( id = 123456 )
+# Returns a user object if the user exists and None otherwise
+#
+def get_user(**kwargs):
+    docs = None
+
+    if "email" in kwargs:
+        docs = UserDoc.objects(email = kwargs["email"])
+    elif "id" in kwargs:
+        docs = UserDoc.objects(id = kwargs["id"])
+
+    if docs and len(docs) == 1:
         user = docs[0]
 
         return User(
                 email = user.email,
                 first_name = user.first_name,
                 last_name = user.last_name,
-                password = user.password)
+                password = user.password,
+                id_num = user.id)
     return None
 
-# Remove a user from the database
-# The user is referenced by email
-# Returns True iff the user was successfully removed
-def delete_user(email):
-    docs = UserDoc.objects(email = email)
 
-    if len(docs) == 1:
+# Remove a user from the database
+# The user may be referenced by email or id in the same way as get_user
+# Returns True iff the user was successfully removed
+def delete_user(**kwargs):
+    docs = None
+
+    if "email" in kwargs:
+        docs = UserDoc.objects(email = kwargs["email"])
+    elif "id" in kwargs:
+        docs = UserDoc.objects(id = kwargs["id"])
+
+    if docs and len(docs) == 1:
         user = docs[0]
-        
+
         try:
             user.delete()
-        except:
+        except Exception as e:
+            print(e)
             return False
 
         return True
     
     return False
-
-# Get the id number to identify a user
-# Expects the user's email
-# returns the id number if the user with 'email' exists and None otherwise
-def get_user_id(email):
-    docs = UserDoc.objects(email = email)
-
-    if len(docs) == 1:
-        user = docs[0]
-
-        return user.id
-
-    return None
 
