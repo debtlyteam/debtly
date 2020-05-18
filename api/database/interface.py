@@ -4,6 +4,7 @@ from utils.user import User
 from database.templates import Users as UserDoc
 import mongoengine
 
+
 # Adds a user to the database
 #
 # newUser: A User object containing the information of the user to add
@@ -19,9 +20,11 @@ def add_user(new_user):
     try:
         doc.save(force_insert = True)
     except Exception as e:
+        print(e)    # TODO: Properly log errors
         return False
 
     return True
+
 
 #
 # Retrieve a user from the database
@@ -45,37 +48,32 @@ def get_user(**kwargs):
                 email = user.email,
                 first_name = user.first_name,
                 last_name = user.last_name,
-                password = user.password)
+                password = user.password,
+                id_num = user.id)
     return None
 
-# Remove a user from the database
-# The user is referenced by email
-# Returns True iff the user was successfully removed
-def delete_user(email):
-    docs = UserDoc.objects(email = email)
 
-    if len(docs) == 1:
+# Remove a user from the database
+# The user may be referenced by email or id in the same way as get_user
+# Returns True iff the user was successfully removed
+def delete_user(**kwargs):
+    docs = None
+
+    if "email" in kwargs:
+        docs = UserDoc.objects(email = kwargs["email"])
+    elif "id" in kwargs:
+        docs = UserDoc.objects(id = kwargs["id"])
+
+    if docs and len(docs) == 1:
         user = docs[0]
-        
+
         try:
             user.delete()
-        except:
+        except Exception as e:
+            print(e)
             return False
 
         return True
     
     return False
-
-# Get the id number to identify a user
-# Expects the user's email
-# returns the id number if the user with 'email' exists and None otherwise
-def get_user_id(email):
-    docs = UserDoc.objects(email = email)
-
-    if len(docs) == 1:
-        user = docs[0]
-
-        return user.id
-
-    return None
 

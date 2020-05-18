@@ -1,7 +1,7 @@
 # Quick tests for using the mongo database
 
 from utils.user import User
-from database.interface import add_user, get_user, get_user_id, delete_user
+from database.interface import add_user, get_user, delete_user
 import mongoengine
 
 mongoengine.connect('test')
@@ -16,11 +16,11 @@ print("Getting User email...")
 print(get_user(email = user.email).email)
 
 print("Getting User ID Number...")
-id_num = get_user_id(user.email)
-print(id_num)
+id_num = get_user(email = user.email).id_num
+print (id_num)
 
 print("Getting User by ID...")
-print(get_user(id = id_num).email)
+print(get_user(id = id_num).id_num)
 
 print("Deleting user...")
-print(delete_user(user.email))
+print(delete_user(email = user.email))
