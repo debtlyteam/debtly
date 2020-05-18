@@ -1,6 +1,7 @@
 from flask import Blueprint, request, session
 from http import HTTPStatus
-from database.interface import add_user, get_user, get_user_id
+from flask_login import login_required, current_user, login_user
+from database.interface import add_user, get_user
 from utils.user import User
 from utils.password import hash_password, verify_password
 
@@ -17,10 +18,10 @@ def login():
 
     # TODO: nicer verification of a valid request
     if 'email' in json and 'password' in json:
-        user = get_user(json['email'])
+        user = get_user(email=json['email'])
         if user and verify_password(user.password, json['password']):
-            session['user'] = str(get_user_id(json['email']))
-            ret_data['token'] = session['user']
+            login_user(user)
+            ret_data['user'] = user.site_data()
             return ret_data, HTTPStatus.OK
     return ret_data, HTTPStatus.UNAUTHORIZED
 
@@ -49,9 +50,5 @@ def register():
 @userRoutes.route('/authenticate', methods = ['GET'])
 def authenticate():
     ret_data = {}
-    ret_data['sid'] = session.sid # TODO: remove this line once auth is fully working
-    if 'user' in session:
-        ret_data['token'] = session['user']
-        return ret_data, HTTPStatus.OK
-    else:
-        return ret_data, HTTPStatus.UNAUTHORIZED
+    ret_data['isLoggedIn'] = current_user.is_authenticated
+    return ret_data, HTTPStatus.OK
