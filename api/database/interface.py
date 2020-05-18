@@ -2,7 +2,7 @@
 
 from utils.user import User
 from database.templates import Users as UserDoc
-from pymongo import ObjectId
+from bson import ObjectId
 import mongoengine
 
 
