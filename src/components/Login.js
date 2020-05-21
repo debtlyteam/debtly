@@ -97,8 +97,7 @@ class Login extends Component {
     }
 
     fetch('/login', loginData)
-      .then(res => res.json())
-      .then(data => { this.processLogin(data.isLoggedIn) })
+      .then(res => this.processLogin(res.ok))
   }
 
   processLogin (isLoggedIn) {
@@ -124,7 +123,8 @@ class Login extends Component {
     }
 
     fetch('/register', registerData)
-      .then(res => { this.processRegister(res.ok) })
+      .then(res => res.json())
+      .then(data => this.processRegister(data.isRegistered))
   }
 
   processRegister (isRegistered) {
