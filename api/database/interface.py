@@ -2,6 +2,7 @@
 
 from utils.user import User
 from database.templates import Users as UserDoc
+from bson import ObjectId
 import mongoengine
 
 
@@ -40,6 +41,8 @@ def get_user(**kwargs):
         docs = UserDoc.objects(email = kwargs["email"])
     elif "id" in kwargs:
         docs = UserDoc.objects(id = kwargs["id"])
+    elif "id_str" in kwargs:
+        docs = UserDoc.objects(id = ObjectId(kwargs["id_str"]))
 
     if docs and len(docs) == 1:
         user = docs[0]

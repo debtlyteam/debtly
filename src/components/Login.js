@@ -87,14 +87,51 @@ class Login extends Component {
 
   attemptLogin () {
     // we can do backend login attempt here or in the reducer, although it feels like this is a better place for it since the reducer should primarily take care of state changes
-    console.log('handle login')
-    this.actions.AttemptLogin({ username: this.state.username, password: this.state.password })
-    this.props.history.push('/')
+    const loginData = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: this.state.username,
+        password: this.state.password
+      })
+    }
+
+    fetch('/login', loginData)
+      .then(res => this.processLogin(res.ok))
+  }
+
+  processLogin (isLoggedIn) {
+    if (isLoggedIn) {
+      this.actions.AttemptLogin({ username: this.state.username, password: this.state.password })
+      this.props.history.push('/')
+    } else {
+      // TODO: handle this in the UI
+      console.log('Failed to login')
+    }
   }
 
   attemptRegister () {
     // something will happen here
-    console.log('handle register')
+    const registerData = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: this.state.username,
+        name: this.state.name,
+        password: this.state.password
+      })
+    }
+
+    fetch('/register', registerData)
+      .then(res => res.json())
+      .then(data => this.processRegister(data.isRegistered))
+  }
+
+  processRegister (isRegistered) {
+    // TODO: handle failure better (personal goal)
+    if (!isRegistered) {
+      console.log('Failed to register user!')
+    }
   }
 
   // TODO: what's the deal with button onSubmit?
