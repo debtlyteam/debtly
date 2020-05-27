@@ -73,12 +73,9 @@ class LoginView extends Component {
   handleSubmit (event) {
     event.preventDefault()
     if (this.state.tryRegister) {
-      this.handleRegister(this.state.name,
-                          this.state.email,
-                          this.state.password)
+      this.handleRegister(this.state.name, this.state.email, this.state.password)
     } else {
-      this.handleLogin(this.state.email,
-                       this.state.password)
+      this.handleLogin(this.state.email, this.state.password)
     }
   }
 
