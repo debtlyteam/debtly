@@ -1,5 +1,6 @@
 import React from 'react'
-import { Route, BrowserRouter as Router } from 'react-router-dom'
+import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
+
 import { connect } from 'react-redux'
 import LoginContainer from 'components/Login/LoginContainer'
 import LogoutContainer from 'components/Logout/LogoutContainer'
@@ -9,13 +10,14 @@ import Header from 'components/Header'
 import LoadingView from 'components/LoadingView'
 import { loadMe } from 'actions/appActions'
 import 'App.css'
+import ProtectedRoute from 'components/ProtectedRoute'
 
 class App extends React.Component {
-  componentDidMount() {
+  componentDidMount () {
     this.props.loadUser()
   }
 
-  render() {
+  render () {
     const { loadingAuth } = this.props
 
     return (
@@ -24,10 +26,14 @@ class App extends React.Component {
           {!loadingAuth && (
             <div>
               <Header />
-              <Route exact path="/" component={HomeContainer} />
-              <Route path="/login" component={LoginContainer} />
-              <Route path="/logout" component={LogoutContainer} />
-              <Route path="/protected" component={ProtectedContainer} />
+              <Switch>
+                <ProtectedRoute exact path="/">
+                  <HomeContainer/>
+                </ProtectedRoute>
+                <Route path="/login" component={LoginContainer} />
+                <Route path="/logout" component={LogoutContainer} />
+                <Route path="/protected" component={ProtectedContainer} />
+              </Switch>
             </div>
           )}
           <LoadingView currentlySending={loadingAuth} />

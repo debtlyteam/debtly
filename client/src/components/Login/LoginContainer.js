@@ -6,21 +6,24 @@ import LoginView from 'components/Login/LoginView'
 import { login, register, setErrorMessage } from 'actions/appActions'
 
 class LoginContainer extends React.Component {
-  componentWillMount() {
+  //TODO
+  UNSAFE_componentWillMount () {
     this.props.clearErrors()
   }
 
-  render() {
-    const { loggedIn,
-            handleLogin,
-            handleRegister,
-            currentlySending,
-            formState,
-            errorMessage } = this.props
+  render () {
+    const {
+      isLoggedIn,
+      handleLogin,
+      handleRegister,
+      currentlySending,
+      formState,
+      errorMessage
+    } = this.props
 
     return (
       <div>
-        {loggedIn ? (
+        {isLoggedIn ? (
           <Redirect to="/" />
         ) : (
           <LoginView
@@ -37,7 +40,7 @@ class LoginContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  loggedIn: state.loggedIn,
+  isLoggedIn: state.login.isLoggedIn,
   currentlySending: state.currentlySending,
   formState: state.formState,
   errorMessage: state.errorMessage

@@ -7,18 +7,18 @@ import LoadingView from 'components/LoadingView'
 import { logout } from 'actions/appActions'
 
 class LogoutContainer extends React.Component {
-  componentWillMount() {
-    if (this.props.loggedIn) {
+  componentWillMount () {
+    if (this.props.isLoggedIn) {
       this.props.handleLogout()
     }
   }
 
-  render() {
-    const { loggedIn, currentlySending, errorMessage } = this.props
+  render () {
+    const { isLoggedIn, currentlySending, errorMessage } = this.props
 
     return (
       <div>
-        {!loggedIn && <Redirect to="/login" />}
+        {!isLoggedIn && <Redirect to="/login" />}
         <LoadingView currentlySending={currentlySending} />
         <ErrorView message={errorMessage} />
       </div>
@@ -27,7 +27,7 @@ class LogoutContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  loggedIn: state.loggedIn,
+  isLoggedIn: state.isLoggedIn,
   currentlySending: state.currentlySending,
   errorMessage: state.errorMessage
 })

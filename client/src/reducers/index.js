@@ -14,7 +14,9 @@ const initialState = {
   },
   currentlySending: false,
   loadingAuth: false,
-  loggedIn: false,
+  login: {
+    isLoggedIn: false
+  },
   errorMessage: '',
   data: {
     home: '',
@@ -54,7 +56,9 @@ const changeForm = (state, action) => {
 const setAuth = (state, action) => {
   return {
     ...state,
-    loggedIn: action.newState
+    login: {
+      isLoggedIn: action.newState
+    }
   }
 }
 
