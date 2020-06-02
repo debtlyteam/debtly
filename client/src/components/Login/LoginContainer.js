@@ -37,7 +37,8 @@ class LoginContainer extends React.Component {
       handleRegister,
       currentlySending,
       formState,
-      errorMessage
+      errorMessage,
+      clearErrors,
     } = this.props
 
     return (
@@ -46,6 +47,7 @@ class LoginContainer extends React.Component {
           <Redirect to="/" />
         ) : (
           <LoginView
+            clearErrors={clearErrors}
             handleLogin={handleLogin}
             handleRegister={handleRegister}
             currentlySending={currentlySending}

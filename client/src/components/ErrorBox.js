@@ -34,7 +34,7 @@ ErrorBox.propTypes = {
 export default function ErrorBox (props) {
   const { message } = props
   const classes = useStyles(theme)
-  const collapse = message
+  const collapse = message === '' ? false : true;
   return (
     <Collapse in={collapse}>
       <div className={classes.root}>

@@ -75,7 +75,8 @@ class LoginView extends Component {
       classes: PropTypes.object,
       handleRegister: PropTypes.func,
       handleLogin: PropTypes.func,
-      errorMessage: PropTypes.string
+      errorMessage: PropTypes.string,
+      clearErrors: PropTypes.func,
     }
   }
 
@@ -86,6 +87,11 @@ class LoginView extends Component {
     } else {
       this.handleLogin(this.state.email, this.state.password)
     }
+  }
+
+  setTryRegister(newState) {
+    this.props.clearErrors()
+    this.setState({tryRegister : newState})
   }
 
   render () {
@@ -101,7 +107,7 @@ class LoginView extends Component {
           >
             <Fade in={this.state.tryRegister}>
               <IconButton
-                onClick={(e) => { this.setState({ tryRegister: false }) }}
+                onClick={(e) => { this.setTryRegister(false) }}
               >
                 <ArrowBack/>
               </IconButton>
@@ -189,7 +195,7 @@ class LoginView extends Component {
                   variant="outlined"
                   color="primary"
                   onClick={(e) => {
-                    this.setState({ tryRegister: true })
+                    this.setTryRegister(true);
                   }}
                 >
             Create new account
