@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter, Redirect } from 'react-router-dom'
 
-import ErrorView from 'components/ErrorView'
+import ErrorBox from 'components/ErrorBox'
 import LoadingView from 'components/LoadingView'
 import { logout } from 'actions/appActions'
 
@@ -20,7 +20,7 @@ class LogoutContainer extends React.Component {
       <div>
         {!isLoggedIn && <Redirect to="/login" />}
         <LoadingView currentlySending={currentlySending} />
-        <ErrorView message={errorMessage} />
+        <ErrorBox message={errorMessage} />
       </div>
     )
   }

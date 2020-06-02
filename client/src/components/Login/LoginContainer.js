@@ -1,8 +1,9 @@
 // TODO: decide whether to keep these or not
-import ErrorView from 'components/ErrorView'
-import LoadingView from 'components/LoadingView'
+// import ErrorBox from 'components/ErrorBox'
+// import LoadingView from 'components/LoadingView'
 
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter, Redirect } from 'react-router-dom'
 
@@ -10,9 +11,23 @@ import LoginView from 'components/Login/LoginView'
 import { login, register, setErrorMessage } from 'actions/appActions'
 
 class LoginContainer extends React.Component {
-  //TODO
+  // TODO
+  /*eslint-disable */
   UNSAFE_componentWillMount () {
     this.props.clearErrors()
+  }
+  /* eslint-enable */
+
+  static get propTypes () {
+    return {
+      clearErrors: PropTypes.func,
+      isLoggedIn: PropTypes.bool,
+      currentlySending: PropTypes.bool,
+      handleRegister: PropTypes.func,
+      handleLogin: PropTypes.func,
+      errorMessage: PropTypes.string,
+      formState: PropTypes.object
+    }
   }
 
   render () {

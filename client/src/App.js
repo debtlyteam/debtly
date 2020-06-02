@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
 
 import { connect } from 'react-redux'
@@ -12,11 +13,18 @@ import { loadMe } from 'actions/appActions'
 import 'App.css'
 import ProtectedRoute from 'components/ProtectedRoute'
 import theme from 'components/Theme'
-import {ThemeProvider} from "@material-ui/core"
+import { ThemeProvider } from '@material-ui/core'
 
 class App extends React.Component {
   componentDidMount () {
     this.props.loadUser()
+  }
+
+  static get propTypes () {
+    return {
+      loadUser: PropTypes.func,
+      loadingAuth: PropTypes.bool
+    }
   }
 
   render () {
@@ -24,25 +32,25 @@ class App extends React.Component {
 
     return (
       <ThemeProvider theme={theme}>
-      <Router>
-        <div>
-          {!loadingAuth && (
-            <div>
-              <Header />
-              <Switch>
-                <ProtectedRoute exact path="/">
-                  <HomeContainer/>
-                </ProtectedRoute>
-                <Route path="/login" component={LoginContainer} />
-                <Route path="/logout" component={LogoutContainer} />
-                <Route path="/protected" component={ProtectedContainer} />
-              </Switch>
-            </div>
-          )}
-          <LoadingView currentlySending={loadingAuth} />
-        </div>
-      </Router>
-    </ThemeProvider>
+        <Router>
+          <div>
+            {!loadingAuth && (
+              <div>
+                <Header />
+                <Switch>
+                  <ProtectedRoute exact path="/">
+                    <HomeContainer/>
+                  </ProtectedRoute>
+                  <Route path="/login" component={LoginContainer} />
+                  <Route path="/logout" component={LogoutContainer} />
+                  <Route path="/protected" component={ProtectedContainer} />
+                </Switch>
+              </div>
+            )}
+            <LoadingView currentlySending={loadingAuth} />
+          </div>
+        </Router>
+      </ThemeProvider>
     )
   }
 }

@@ -129,7 +129,7 @@ export const changeForm = newState => {
 }
 
 const setAuthState = newState => {
-  console.log("newState: " + newState)
+  console.log('newState: ' + newState)
   return { type: SET_AUTH, newState }
 }
 
