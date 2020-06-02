@@ -4,7 +4,7 @@ import LoadingView from 'components/LoadingView'
 
 import React, { Component } from 'react'
 import {
-  Button, TextField, ThemeProvider, CssBaseline,
+  Button, TextField, CssBaseline,
   Container, Avatar, Typography, Box, Collapse,
   Fade, IconButton
 } from '@material-ui/core'
@@ -14,7 +14,6 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff'
 import ArrowBack from '@material-ui/icons/ArrowBack'
 import { withRouter } from 'react-router'
 import PropTypes from 'prop-types'
-import theme from 'components/Theme'
 import { withStyles } from '@material-ui/core/styles'
 
 const styles = theme => (
@@ -80,10 +79,8 @@ class LoginView extends Component {
   }
 
   render () {
-    const { classes } = this.props
+    const { classes, errorMessage } = this.props
     return (
-      // TODO: move theme to top level app/router/index
-      <ThemeProvider theme={theme}>
         <Container component='main' maxWidth='xs'>
           <Box className={classes.box}
             border={1}>
@@ -164,6 +161,7 @@ class LoginView extends Component {
                       </IconButton>
                   }}
                 />
+                <ErrorView message={errorMessage}/>
                 <Collapse in={!this.state.tryRegister}>
                   <Button
                     className={classes.login}
@@ -202,7 +200,6 @@ class LoginView extends Component {
             </div>
           </Box>
         </Container>
-      </ThemeProvider>
     )
   }
 }

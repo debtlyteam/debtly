@@ -1,3 +1,7 @@
+// TODO: decide whether to keep these or not
+import ErrorView from 'components/ErrorView'
+import LoadingView from 'components/LoadingView'
+
 import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter, Redirect } from 'react-router-dom'

@@ -11,7 +11,10 @@ const mainTheme = createMuiTheme({
       // main: '#FC9F5B',
       light: '#0066ff',
       main: '#0044ff'
-    }
+    },
+    // error: {
+
+    // }
   },
   spacing: 4
 })

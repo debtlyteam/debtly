@@ -11,6 +11,8 @@ import LoadingView from 'components/LoadingView'
 import { loadMe } from 'actions/appActions'
 import 'App.css'
 import ProtectedRoute from 'components/ProtectedRoute'
+import theme from 'components/Theme'
+import {ThemeProvider} from "@material-ui/core"
 
 class App extends React.Component {
   componentDidMount () {
@@ -21,6 +23,7 @@ class App extends React.Component {
     const { loadingAuth } = this.props
 
     return (
+      <ThemeProvider theme={theme}>
       <Router>
         <div>
           {!loadingAuth && (
@@ -39,6 +42,7 @@ class App extends React.Component {
           <LoadingView currentlySending={loadingAuth} />
         </div>
       </Router>
+    </ThemeProvider>
     )
   }
 }

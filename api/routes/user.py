@@ -41,6 +41,7 @@ def register():
                 first_name = json['name'],
                 password = hash_password(json['password']))
         ret_data['isRegistered'] = add_user(user)
+        print(ret_data)
         return ret_data, HTTPStatus.OK
 
     return ret_data, HTTPStatus.BAD_REQUEST
