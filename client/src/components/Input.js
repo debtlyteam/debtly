@@ -3,19 +3,19 @@ import { connect } from 'react-redux'
 import { changeForm } from 'actions/appActions'
 
 class Input extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.changeInput = this.changeInput.bind(this)
   }
 
-  changeInput(event) {
+  changeInput (event) {
     const value = event.target.value
     const name = event.target.name
 
     this.props.handleChange({ [name]: value })
   }
 
-  render() {
+  render () {
     const { label, type, name, model, formState } = this.props
 
     return (

@@ -1,10 +1,10 @@
 // TODO: decide whether to keep these or not
-import ErrorView from 'components/ErrorView'
-import LoadingView from 'components/LoadingView'
+import ErrorBox from 'components/ErrorBox'
+// import LoadingView from 'components/LoadingView'
 
 import React, { Component } from 'react'
 import {
-  Button, TextField, ThemeProvider, CssBaseline,
+  Button, TextField, CssBaseline,
   Container, Avatar, Typography, Box, Collapse,
   Fade, IconButton
 } from '@material-ui/core'
@@ -14,7 +14,6 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff'
 import ArrowBack from '@material-ui/icons/ArrowBack'
 import { withRouter } from 'react-router'
 import PropTypes from 'prop-types'
-import theme from 'components/Theme'
 import { withStyles } from '@material-ui/core/styles'
 
 const styles = theme => (
@@ -70,6 +69,17 @@ class LoginView extends Component {
     this.handleLogin = props.handleLogin
   }
 
+  static get propTypes () {
+    return {
+      LoadingView: PropTypes.object,
+      classes: PropTypes.object,
+      handleRegister: PropTypes.func,
+      handleLogin: PropTypes.func,
+      errorMessage: PropTypes.string,
+      clearErrors: PropTypes.func,
+    }
+  }
+
   handleSubmit (event) {
     event.preventDefault()
     if (this.state.tryRegister) {
@@ -79,81 +89,84 @@ class LoginView extends Component {
     }
   }
 
-  render () {
-    const { classes } = this.props
-    return (
-      // TODO: move theme to top level app/router/index
-      <ThemeProvider theme={theme}>
-        <Container component='main' maxWidth='xs'>
-          <Box className={classes.box}
-            border={1}>
-            <CssBaseline/>
-            <Box
-              display='flex'
-              flexDirection='row'
-            >
-              <Fade in={this.state.tryRegister}>
-                <IconButton
-                  onClick={(e) => { this.setState({ tryRegister: false }) }}
-                >
-                  <ArrowBack/>
-                </IconButton>
-              </Fade>
-            </Box>
+  setTryRegister(newState) {
+    this.props.clearErrors()
+    this.setState({tryRegister : newState})
+  }
 
-            <div className={classes.paper}>
-              <Avatar className={classes.avatar} color='primary'>
-                <LockOpenIcon/>
-              </Avatar>
-              <Typography component='h1' variant='h5'>
-                {this.state.tryRegister ? 'Register' : 'Login'}
-              </Typography>
-              <form className={classes.form}
-                onSubmit={this.handleSubmit}
+  render () {
+    const { classes, errorMessage } = this.props
+    return (
+      <Container component='main' maxWidth='xs'>
+        <Box className={classes.box}
+          border={1}>
+          <CssBaseline/>
+          <Box
+            display='flex'
+            flexDirection='row'
+          >
+            <Fade in={this.state.tryRegister}>
+              <IconButton
+                onClick={(e) => { this.setTryRegister(false) }}
               >
-                <Collapse in={this.state.tryRegister}>
-                  <TextField
-                    className={classes.textEntry}
-                    variant='outlined'
-                    margin='normal'
-                    required={this.state.tryRegister}
-                    fullWidth
-                    id='name'
-                    label='Enter your Name'
-                    onChange = {(event) => {
-                      this.setState({ name: event.target.value })
-                    }}
-                  />
-                </Collapse>
+                <ArrowBack/>
+              </IconButton>
+            </Fade>
+          </Box>
+
+          <div className={classes.paper}>
+            <Avatar className={classes.avatar} color='primary'>
+              <LockOpenIcon/>
+            </Avatar>
+            <Typography component='h1' variant='h5'>
+              {this.state.tryRegister ? 'Register' : 'Login'}
+            </Typography>
+            <form className={classes.form}
+              onSubmit={this.handleSubmit}
+            >
+              <Collapse in={this.state.tryRegister}>
                 <TextField
                   className={classes.textEntry}
                   variant='outlined'
-                  required
+                  margin='normal'
+                  required={this.state.tryRegister}
                   fullWidth
-                  id='email'
-                  label="Enter your Email"
-                  name='email'
-                  autoComplete='email'
-                  autoFocus
+                  id='name'
+                  label='Enter your Name'
                   onChange = {(event) => {
-                    this.setState({ email: event.target.value })
+                    this.setState({ name: event.target.value })
                   }}
                 />
-                <TextField
-                  className={classes.textEntry}
-                  variant='outlined'
-                  required
-                  fullWidth
-                  id='password'
-                  label='Enter your Password'
-                  name='password'
-                  type={this.state.showPassword ? '' : 'password'}
-                  autoComplete='password'
-                  onChange = {(event) => {
-                    this.setState({ password: event.target.value })
-                  }}
-                  InputProps={{
-                    endAdornment:
+              </Collapse>
+              <TextField
+                className={classes.textEntry}
+                variant='outlined'
+                required
+                fullWidth
+                id='email'
+                label="Enter your Email"
+                name='email'
+                autoComplete='email'
+                autoFocus
+                onChange = {(event) => {
+                  this.setState({ email: event.target.value })
+                }}
+              />
+              <TextField
+                className={classes.textEntry}
+                variant='outlined'
+                required
+                fullWidth
+                id='password'
+                label='Enter your Password'
+                name='password'
+                type={this.state.showPassword ? '' : 'password'}
+                autoComplete='password'
+                onChange = {(event) => {
+                  this.setState({ password: event.target.value })
+                }}
+                InputProps={{
+                  endAdornment:
                       <IconButton
                         aria-label="toggle password visibility"
                         onClick={(e) => {
@@ -162,47 +175,47 @@ class LoginView extends Component {
                       >
                         {this.state.showPassword ? <Visibility/> : <VisibilityOff/>}
                       </IconButton>
-                  }}
-                />
-                <Collapse in={!this.state.tryRegister}>
-                  <Button
-                    className={classes.login}
-                    type={this.state.tryRegister ? 'button' : 'submit'}
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                  >
+                }}
+              />
+              <ErrorBox message={errorMessage}/>
+              <Collapse in={!this.state.tryRegister}>
+                <Button
+                  className={classes.login}
+                  type={this.state.tryRegister ? 'button' : 'submit'}
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                >
             Login
-                  </Button>
-                  <Button
-                    className={classes.register}
-                    type="button"
-                    fullWidth
-                    variant="outlined"
-                    color="primary"
-                    onClick={(e) => {
-                      this.setState({ tryRegister: true })
-                    }}
-                  >
+                </Button>
+                <Button
+                  className={classes.register}
+                  type="button"
+                  fullWidth
+                  variant="outlined"
+                  color="primary"
+                  onClick={(e) => {
+                    this.setTryRegister(true);
+                  }}
+                >
             Create new account
-                  </Button>
-                </Collapse>
-                <Collapse in={this.state.tryRegister}>
-                  <Button
-                    className={classes.register}
-                    type={!this.state.tryRegister ? 'button' : 'submit'}
-                    fullWidth
-                    variant="outlined"
-                    color="primary"
-                  >
+                </Button>
+              </Collapse>
+              <Collapse in={this.state.tryRegister}>
+                <Button
+                  className={classes.register}
+                  type={!this.state.tryRegister ? 'button' : 'submit'}
+                  fullWidth
+                  variant="outlined"
+                  color="primary"
+                >
                   Register
-                  </Button>
-                </Collapse>
-              </form>
-            </div>
-          </Box>
-        </Container>
-      </ThemeProvider>
+                </Button>
+              </Collapse>
+            </form>
+          </div>
+        </Box>
+      </Container>
     )
   }
 }

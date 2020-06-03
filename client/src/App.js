@@ -1,5 +1,7 @@
 import React from 'react'
-import { Route, BrowserRouter as Router } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
+
 import { connect } from 'react-redux'
 import LoginContainer from 'components/Login/LoginContainer'
 import LogoutContainer from 'components/Logout/LogoutContainer'
@@ -9,30 +11,46 @@ import Header from 'components/Header'
 import LoadingView from 'components/LoadingView'
 import { loadMe } from 'actions/appActions'
 import 'App.css'
+import ProtectedRoute from 'components/ProtectedRoute'
+import theme from 'components/Theme'
+import { ThemeProvider } from '@material-ui/core'
 
 class App extends React.Component {
-  componentDidMount() {
+  componentDidMount () {
     this.props.loadUser()
   }
 
-  render() {
+  static get propTypes () {
+    return {
+      loadUser: PropTypes.func,
+      loadingAuth: PropTypes.bool
+    }
+  }
+
+  render () {
     const { loadingAuth } = this.props
 
     return (
-      <Router>
-        <div>
-          {!loadingAuth && (
-            <div>
-              <Header />
-              <Route exact path="/" component={HomeContainer} />
-              <Route path="/login" component={LoginContainer} />
-              <Route path="/logout" component={LogoutContainer} />
-              <Route path="/protected" component={ProtectedContainer} />
-            </div>
-          )}
-          <LoadingView currentlySending={loadingAuth} />
-        </div>
-      </Router>
+      <ThemeProvider theme={theme}>
+        <Router>
+          <div>
+            {!loadingAuth && (
+              <div>
+                <Header />
+                <Switch>
+                  <ProtectedRoute exact path="/">
+                    <HomeContainer/>
+                  </ProtectedRoute>
+                  <Route path="/login" component={LoginContainer} />
+                  <Route path="/logout" component={LogoutContainer} />
+                  <Route path="/protected" component={ProtectedContainer} />
+                </Switch>
+              </div>
+            )}
+            <LoadingView currentlySending={loadingAuth} />
+          </div>
+        </Router>
+      </ThemeProvider>
     )
   }
 }

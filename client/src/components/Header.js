@@ -3,8 +3,8 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 class Header extends React.Component {
-  render() {
-    const { loggedIn } = this.props
+  render () {
+    const { isLoggedIn } = this.props
 
     return (
       <header>
@@ -12,7 +12,7 @@ class Header extends React.Component {
           <li>
             <Link to="/">Home</Link>
           </li>
-          {!loggedIn ? (
+          {!isLoggedIn ? (
             <li>
               <Link to="/login">Login</Link>
             </li>
@@ -32,7 +32,7 @@ class Header extends React.Component {
   }
 }
 const mapStateToProps = state => ({
-  loggedIn: state.loggedIn
+  isLoggedIn: state.login.isLoggedIn
 })
 
 export default connect(mapStateToProps)(Header)

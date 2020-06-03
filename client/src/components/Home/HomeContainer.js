@@ -5,11 +5,11 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
 class HomeContainer extends React.Component {
-  componentDidMount() {
+  componentDidMount () {
     this.props.loadData()
   }
 
-  render() {
+  render () {
     const { currentlySending, data, errorMessage } = this.props
     return <HomeView currentlySending={currentlySending} data={data} errorMessage={errorMessage} />
   }

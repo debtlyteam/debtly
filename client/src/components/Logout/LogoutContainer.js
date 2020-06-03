@@ -2,32 +2,32 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter, Redirect } from 'react-router-dom'
 
-import ErrorView from 'components/ErrorView'
+import ErrorBox from 'components/ErrorBox'
 import LoadingView from 'components/LoadingView'
 import { logout } from 'actions/appActions'
 
 class LogoutContainer extends React.Component {
-  componentWillMount() {
-    if (this.props.loggedIn) {
+  componentWillMount () {
+    if (this.props.isLoggedIn) {
       this.props.handleLogout()
     }
   }
 
-  render() {
-    const { loggedIn, currentlySending, errorMessage } = this.props
+  render () {
+    const { isLoggedIn, currentlySending, errorMessage } = this.props
 
     return (
       <div>
-        {!loggedIn && <Redirect to="/login" />}
+        {!isLoggedIn && <Redirect to="/login" />}
         <LoadingView currentlySending={currentlySending} />
-        <ErrorView message={errorMessage} />
+        <ErrorBox message={errorMessage} />
       </div>
     )
   }
 }
 
 const mapStateToProps = state => ({
-  loggedIn: state.loggedIn,
+  isLoggedIn: state.isLoggedIn,
   currentlySending: state.currentlySending,
   errorMessage: state.errorMessage
 })

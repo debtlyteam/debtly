@@ -1,6 +1,6 @@
 from flask import Blueprint, request, session
 from http import HTTPStatus
-from flask_login import login_required, current_user, login_user
+from flask_login import login_required, current_user, login_user, logout_user
 from database.interface import add_user, get_user
 from utils.user import User
 from utils.password import hash_password, verify_password
@@ -26,6 +26,15 @@ def login():
     return ret_data, HTTPStatus.UNAUTHORIZED
 
 
+# Logout Route
+@userRoutes.route('/logout', methods = ['GET'])
+def logout():
+    ret_data = {}
+    logout_user()
+    ret_data['isLoggedIn'] = current_user.is_authenticated
+    return ret_data, HTTPStatus.OK
+
+
 # Register Route
 @userRoutes.route('/register', methods = ['POST'])
 def register():
@@ -41,6 +50,7 @@ def register():
                 first_name = json['name'],
                 password = hash_password(json['password']))
         ret_data['isRegistered'] = add_user(user)
+        print(ret_data)
         return ret_data, HTTPStatus.OK
 
     return ret_data, HTTPStatus.BAD_REQUEST

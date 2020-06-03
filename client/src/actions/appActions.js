@@ -28,6 +28,8 @@ export const login = (email, password) => {
         dispatch(setAuthState(true))
       })
       .catch(error => {
+        // TODO: update me
+        console.log(error)
         dispatch(sendingRequest(false))
         dispatch(setErrorMessage('Login failed'))
       })
@@ -52,10 +54,11 @@ export const register = (name, email, password) => {
       })
       .then(data => {
         dispatch(sendingRequest(false))
-        if (!data.isRegistered)
-          dispatch(setErrorMessage('Failed to register, email in use'))
+        if (!data.isRegistered) { dispatch(setErrorMessage('Failed to register, email in use')) }
       })
       .catch(error => {
+        // TODO update me
+        console.log(error)
         dispatch(sendingRequest(false))
         dispatch(setErrorMessage('Register failed unexpectedly'))
       })
@@ -92,6 +95,8 @@ export const loadMe = () => {
         dispatch(setAuthState(data.isLoggedIn))
       })
       .catch(error => {
+        // TODO: update me
+        console.log(error)
         dispatch(loadingAuth(false))
       })
   }
@@ -107,6 +112,8 @@ export const logout = () => {
         dispatch(setAuthState(data.isLoggedIn))
       })
       .catch(error => {
+        // TODO: update me
+        console.log(error)
         dispatch(sendingRequest(false))
         dispatch(setErrorMessage('Error logging out'))
       })
@@ -122,6 +129,7 @@ export const changeForm = newState => {
 }
 
 const setAuthState = newState => {
+  console.log('newState: ' + newState)
   return { type: SET_AUTH, newState }
 }
 
