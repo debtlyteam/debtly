@@ -62,12 +62,3 @@ def authenticate():
     ret_data = {}
     ret_data['isLoggedIn'] = current_user.is_authenticated
     return ret_data, HTTPStatus.OK
-
-
-# HACK: Protected Route
-@userRoutes.route('/protected', methods = ['GET'])
-@login_required
-def protected():
-    ret_data = {}
-    ret_data['data'] = "we did it folks"
-    return ret_data, HTTPStatus.OK
