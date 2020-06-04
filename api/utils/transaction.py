@@ -3,17 +3,17 @@
 # Required members
 # ower: the user that purchased the item
 # amount: the amount amount spent
-# split: list of tuples (user_id, amount)
+# split: dict of users to their amount
 #
 # Optional members
 # num: transaction number
 # date: the date the transaction was added to the database
 # desc: the description of the transaction purchase
 class Transaction():
-    def __init__(self, ower, amount, split, **kwargs):
-        self.ower = ower
+    def __init__(self, ower_id, amount, split, **kwargs):
+        self.ower_id = ower_id
         self.amount = amount
-        self.split = split
+        self.split = split # NOTE: should there be a split class?
 
         self.num = kwargs['num'] if 'num' in kwargs else None
         self.date = kwargs['date'] if 'date' in kwargs else None
@@ -21,7 +21,7 @@ class Transaction():
 
     def serialize(self):
         json = {}
-        json['ower'] = self.ower
+        json['ower_id'] = self.ower_id
         json['amount'] = self.amount
         json['split'] = self.split
         json['num'] = self.num

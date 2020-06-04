@@ -22,6 +22,6 @@ class Group():
         json['num_transactions'] = self.num_transactions
         # fill all the users
         json['users'] = []
-        for user in users:
+        for user in self.users:
             json['users'].append(user.serialize())
         return json

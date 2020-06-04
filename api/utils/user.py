@@ -8,6 +8,7 @@ from flask_login import UserMixin
 # password: (optional) the encoded password used to authenticate the User
 # id_num: (optional) the unique id number associated with this iser
 class User(UserMixin):
+    # TODO: refactor with kwargs
     def __init__(self, email, first_name = None, last_name = None, password = None, id_num = None):
         self.email = email
         self.first_name = first_name
@@ -25,5 +26,5 @@ class User(UserMixin):
         json = {}
         json['name'] = self.first_name
         json['email'] = self.email
-        json['id_num'] = self.id_num # TODO: hash this
+        json['id'] = self.get_id() # TODO: hash this
         return json
