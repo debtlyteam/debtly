@@ -5,7 +5,6 @@ import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import LoginContainer from 'components/Login/LoginContainer'
 import LogoutContainer from 'components/Logout/LogoutContainer'
-import ProtectedContainer from 'components/Protected/ProtectedContainer'
 import HomeContainer from 'components/Home/HomeContainer'
 import Header from 'components/Header'
 import LoadingView from 'components/LoadingView'
@@ -43,7 +42,6 @@ class App extends React.Component {
                   </ProtectedRoute>
                   <Route path="/login" component={LoginContainer} />
                   <Route path="/logout" component={LogoutContainer} />
-                  <Route path="/protected" component={ProtectedContainer} />
                 </Switch>
               </div>
             )}

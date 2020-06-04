@@ -27,7 +27,7 @@ class LogoutContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  isLoggedIn: state.isLoggedIn,
+  isLoggedIn: state.login.isLoggedIn,
   currentlySending: state.currentlySending,
   errorMessage: state.errorMessage
 })

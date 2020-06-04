@@ -72,8 +72,9 @@ export const loadData = (path, name) => {
     dispatch(setErrorMessage(''))
     api(`/api${path}`)
       .then(data => {
+        console.log(data)
         dispatch(sendingRequest(false))
-        dispatch(setData({ [name]: data.message }))
+        dispatch(setData({ [name]: data }))
       })
       .catch(error => {
         dispatch(sendingRequest(false))
@@ -89,7 +90,7 @@ export const loadMe = () => {
   return dispatch => {
     dispatch(loadingAuth(true))
     dispatch(setErrorMessage(''))
-    api('api/authenticate')
+    api('/api/authenticate')
       .then(data => {
         dispatch(loadingAuth(false))
         dispatch(setAuthState(data.isLoggedIn))
@@ -108,6 +109,7 @@ export const logout = () => {
     dispatch(setErrorMessage(''))
     api('/api/logout')
       .then(data => {
+        console.log(data)
         dispatch(sendingRequest(false))
         dispatch(setAuthState(data.isLoggedIn))
       })

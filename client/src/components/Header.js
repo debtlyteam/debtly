@@ -21,9 +21,6 @@ class Header extends React.Component {
               <Link to="/logout">Logout</Link>
             </li>
           )}
-          <li>
-            <Link to="/protected">Protected</Link>
-          </li>
         </ul>
 
         <hr />
