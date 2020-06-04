@@ -19,10 +19,11 @@ class User(UserMixin):
     def get_id(self):
         return str(self.id_num)
 
-    # function that returns data for the site to read, ie general user info
+    # function that serializes the site-safe data for http requests
     # obviously this should not return the password, in any form
-    def site_data(self):
-        site_data = {}
-        site_data['name'] = self.first_name
-        site_data['email'] = self.email
-        return site_data
+    def serialize(self):
+        json = {}
+        json['name'] = self.first_name
+        json['email'] = self.email
+        json['id_num'] = self.id_num # TODO: hash this
+        return json

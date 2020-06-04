@@ -14,3 +14,14 @@ class Group():
 
         self.num_transactions = kwargs['num_transactions'] if 'num_transactions' in kwargs else None
         self.id_num = kwargs['id_num'] if 'id_num' in kwargs else None
+
+    def serialize(self):
+        json = {}
+        json['id_num'] = self.id_num # TODO: hash this?
+        json['name'] = self.name
+        json['num_transactions'] = self.num_transactions
+        # fill all the users
+        json['users'] = []
+        for user in users:
+            json['users'].append(user.serialize())
+        return json
