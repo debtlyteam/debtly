@@ -69,7 +69,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   handleLogin: (email, password) => dispatch(login(email, password)),
-  handleRegister: (name, email, password) => dispatch(register(name, email, password)),
+  handleRegister: (firstName, lastName, email, password) => dispatch(register(firstName, lastName, email, password)),
   // TODO: add register function handler here
   clearErrors: () => dispatch(setErrorMessage(''))
 })

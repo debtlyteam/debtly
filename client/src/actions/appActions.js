@@ -36,7 +36,7 @@ export const login = (email, password) => {
   }
 }
 
-export const register = (name, email, password) => {
+export const register = (firstName, lastName, email, password) => {
   return dispatch => {
     dispatch(sendingRequest(true))
     dispatch(setErrorMessage(''))
@@ -46,7 +46,7 @@ export const register = (name, email, password) => {
       },
       credentials: 'same-origin',
       method: 'POST',
-      body: JSON.stringify({ name, email, password })
+      body: JSON.stringify({ firstName, lastName, email, password })
     })
       .then(res => {
         if (res.ok) return res.json()

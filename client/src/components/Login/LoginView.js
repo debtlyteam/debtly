@@ -6,7 +6,7 @@ import React, { Component } from 'react'
 import {
   Button, TextField, CssBaseline,
   Container, Avatar, Typography, Box, Collapse,
-  Fade, IconButton
+  Fade, IconButton, Grid
 } from '@material-ui/core'
 import LockOpenIcon from '@material-ui/icons/LockOpenOutlined'
 import Visibility from '@material-ui/icons/Visibility'
@@ -58,7 +58,8 @@ class LoginView extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      name: '',
+      firstName: '',
+      lastName: '',
       email: '',
       password: '',
       tryRegister: false,
@@ -83,7 +84,7 @@ class LoginView extends Component {
   handleSubmit (event) {
     event.preventDefault()
     if (this.state.tryRegister) {
-      this.handleRegister(this.state.name, this.state.email, this.state.password)
+      this.handleRegister(this.state.firstName, this.state.lastName, this.state.email, this.state.password)
     } else {
       this.handleLogin(this.state.email, this.state.password)
     }
@@ -125,18 +126,37 @@ class LoginView extends Component {
               onSubmit={this.handleSubmit}
             >
               <Collapse in={this.state.tryRegister}>
+                <Grid container direction='row'
+                 justify="left"
+                 alignItems="center"
+                 spacing={3}
+                 >
+                  <Grid item xs={6}>
                 <TextField
                   className={classes.textEntry}
                   variant='outlined'
-                  margin='normal'
                   required={this.state.tryRegister}
                   fullWidth
-                  id='name'
-                  label='Enter your Name'
+                  id='firstname'
+                  label='First Name'
                   onChange = {(event) => {
-                    this.setState({ name: event.target.value })
+                    this.setState({ firstName: event.target.value })
                   }}
                 />
+                  </Grid>
+                  <Grid item xs={6}>
+                <TextField
+                  className={classes.textEntry}
+                  variant='outlined'
+                  fullWidth
+                  id='lastname'
+                  label='Last Name'
+                  onChange = {(event) => {
+                    this.setState({ lastName: event.target.value })
+                  }}
+                />
+                  </Grid>
+                </Grid>
               </Collapse>
               <TextField
                 className={classes.textEntry}
@@ -144,8 +164,8 @@ class LoginView extends Component {
                 required
                 fullWidth
                 id='email'
-                label="Enter your Email"
-                name='email'
+                label="Email"
+                name='Email'
                 autoComplete='email'
                 autoFocus
                 onChange = {(event) => {
