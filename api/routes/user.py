@@ -2,7 +2,7 @@ from flask import Blueprint, request
 from http import HTTPStatus
 from flask_login import login_required, current_user, login_user, logout_user
 from database.interface import add_user, get_user
-from utils.user import User
+from utils.user import User, register_requirements
 from utils.password import hash_password, verify_password
 
 # blueprint for all user routes
@@ -44,11 +44,12 @@ def register():
         return ret_data, HTTPStatus.BAD_REQUEST
 
     # TODO: nicer verification of a valid request
-    if 'email' in json and 'password' in json and 'name' in json:
-        user = User(
-                json['email'],
-                first_name = json['name'],
-                password = hash_password(json['password']))
+    # if 'email' in json and 'password' in json and 'name' in json:
+    if all(field in register_requirements for field in json):
+        user = User(json['email'],
+                    first_name = json['firstName'],
+                    last_name = json['lastName'],
+                    password = hash_password(json['password']))
         ret_data['isRegistered'] = add_user(user)
         print(ret_data)
         return ret_data, HTTPStatus.OK

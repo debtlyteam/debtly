@@ -24,7 +24,13 @@ class User(UserMixin):
     # obviously this should not return the password, in any form
     def serialize(self):
         json = {}
-        json['name'] = self.first_name
+        json['firstName'] = self.first_name
+        json['lastName'] = self.last_name
         json['email'] = self.email
-        json['id'] = self.get_id() # TODO: hash this
         return json
+
+# required fields for registering a user
+register_requirements = ['firstName',
+                         'lastName',
+                         'email',
+                         'password',]
