@@ -23,6 +23,7 @@ import ViewColumn from '@material-ui/icons/ViewColumn';
 import { Box, Typography, Avatar, IconButton, Grid, Paper, Collapse } from '@material-ui/core';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 
 const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -75,40 +76,93 @@ class LedgerView extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      //TODO update size to group size!
-      // expandSelectedRow : new Array(50).fill(false),
+      expandRow : new Array(50).fill(false)
     }
   }
 
-  renderSplitColumn(rowData) {
+  renderSplitColumn(data) {
     const {classes} = this.props
-    let user = 'ajrae.nv@gmail.com'
-    console.log(rowData)
-    let retval = rowData.split[user]
-    if(retval == null) {
-      retval = 0
+    if(data == null) {
+      data = 0
     }
     let colour = classes.plainText
-    if(retval < 0) {
+    if(data < 0) {
       colour = classes.redText
-    } else if (retval > 0) {
+    } else if (data > 0) {
       colour = classes.greenText
     }
-    return(
-      <Typography className={colour}>
-        {retval}
+    return this.renderPaperNumber(colour, data)
+  }
+
+  renderAmountColumn(data, user) {
+    const {classes} = this.props
+    return this.renderPaperNumber(classes.plainText, data)
+  }
+
+  renderPaperNumber(typographyClassName, number) {
+    const {classes} = this.props
+    let negative = number < 0 ? '-' : '';
+    let dollarValue = negative + '$' + Math.abs(number).toString(10)
+    return (
+                <Paper className={classes.paper}>
+      <Typography className={typographyClassName}>
+        {dollarValue}
       </Typography>
+</Paper>
     )
   }
 
+  displayExpandedSplitView(splitData) {
+    //todo: move this to happen earlier?
+    let data = []
+    for(const row in splitData) {
+      data.push({
+        email : row,
+        amount : splitData[row]
+      })
+    }
+    return (
+      <MaterialTable
+        title='Split'
+        data={data}
+        icons={tableIcons}
+        columns={[
+          {title: 'Person', field: 'email'},
+          {title: 'Amount', field: 'amount'},
+        ]}
+        options={{
+        filtering:false,
+        sorting:false,
+        toolbar:false,
+        showTitle:false,
+        draggable:false,
+        search:false,
+        paging: false
+        }}
+      />
+    )
+  }
+
+  handleExpandClick(rowData) {
+    let newArr = this.state.expandRow.slice()
+    newArr[rowData.tableData.id] = !this.state.expandRow[rowData.tableData.id]
+    this.setState({expandRow : newArr })
+  }
+
   render() {
-    const {ledger, group, classes} = this.props
+    const {ledger, group, classes, user} = this.props
+
     let isLoading = (ledger == null);
     let data = isLoading ? [] : ledger.transactions;
+
+    let selectedGroup = group.group
+    let groupName = selectedGroup == null ? 'Loading...' : selectedGroup.name
+    let title = 'Transactions for ' + groupName
+
     return (
     <MaterialTable
     icons={tableIcons}
-     title='Transactions'
+     title={title}
      columns={[
        {
          title: 'Number', field: 'num',
@@ -123,26 +177,38 @@ class LedgerView extends React.Component {
         title: 'Description', field: 'desc',
        },
        {
+        title: 'Amount', field: 'amount',
+          render: rowData => (
+            // <div/>
+            this.renderAmountColumn(rowData.amount, user.email)
+          )
+       },
+       {
         title: 'Split', field: 'split',
         render: rowData => (
           <div className={classes.splitRoot}>
             <Grid container direction='column' spacing={3}>
             <Grid container spacing={3}>
               <Grid item xs>
-                <Paper className={classes.paper}>
-                {this.renderSplitColumn(rowData)}
-                </Paper>
+                {this.renderSplitColumn(rowData.split[user.email])}
                 </Grid>
               <Grid item>
                 <IconButton
-                // onClick={() =>{this.setState({expandSelectedRow[0] : true})}}
+                onClick={() =>{
+                  this.handleExpandClick(rowData)
+                }}
                 >
-                  <ExpandMoreIcon/>
+                  {this.state.expandRow[rowData.tableData.id] ? <ExpandLessIcon/> : <ExpandMoreIcon/>}
                 </IconButton>
                 </Grid>
             </Grid>
-            {/* <Collapse in={this.state.expandSelectedRow[0]}> */}
-            {/* </Collapse> */}
+            <Collapse in={
+              this.state.expandRow[rowData.tableData.id]
+            }>
+              <div>
+                { this.state.expandRow[rowData.tableData.id] ? this.displayExpandedSplitView(rowData.split) : null}
+              </div>
+            </Collapse>
             </Grid>
           </div>
         )
