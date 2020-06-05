@@ -1,6 +1,7 @@
 import {
-  CHANGE_FORM,
   SET_AUTH,
+  SET_USER,
+  CHANGE_FORM,
   SENDING_REQUEST,
   LOADING_AUTH,
   SET_ERROR_MESSAGE,
@@ -17,10 +18,15 @@ const initialState = {
   login: {
     isLoggedIn: false
   },
+  user: {
+    firstName: '',
+    lastName: '',
+    email: ''
+  },
   errorMessage: '',
   data: {
-    home: '',
-    protected: ''
+    group: '',
+    ledger: ''
   }
 }
 
@@ -30,6 +36,8 @@ export const homeReducer = (state = initialState, action) => {
       return changeForm(state, action)
     case SET_AUTH:
       return setAuth(state, action)
+    case SET_USER:
+      return setUser(state, action)
     case SENDING_REQUEST:
       return sendingRequest(state, action)
     case LOADING_AUTH:
@@ -59,6 +67,17 @@ const setAuth = (state, action) => {
     login: {
       isLoggedIn: action.newState
     }
+  }
+}
+
+const setUser = (state, action) => {
+  return {
+    ...state,
+    user: action.user
+    // user: {
+    //   ...state.data,
+    //   ...action.data
+    // }
   }
 }
 

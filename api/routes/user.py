@@ -43,8 +43,7 @@ def register():
     if not json:
         return ret_data, HTTPStatus.BAD_REQUEST
 
-    # TODO: nicer verification of a valid request
-    # if 'email' in json and 'password' in json and 'name' in json:
+    # ensures all required fields are in request's json
     if all(field in register_requirements for field in json):
         user = User(json['email'],
                     first_name = json['firstName'],
@@ -58,8 +57,10 @@ def register():
 
 
 # Authentication Route
-@userRoutes.route('/authenticate', methods = ['GET'])
+@userRoutes.route('/loadme', methods = ['GET'])
 def authenticate():
     ret_data = {}
     ret_data['isLoggedIn'] = current_user.is_authenticated
+    if current_user.is_authenticated:
+        ret_data['user'] = current_user.serialize()
     return ret_data, HTTPStatus.OK
