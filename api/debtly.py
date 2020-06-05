@@ -14,14 +14,11 @@ app = Flask(__name__)
 # TODO: setup up config file
 # !!! SECRET KEY MUST BE UNIQUE IN PRODUCTION !!!
 app.secret_key = b'_8H@jhAsDFh9kjd((!jf'
-# app.config["APPLICATION_ROOT"] = "/api"
 # app.config['SESSION_COOKIE_SECURE'] = True
 app.config['SESSION_COOKIE_HTTPONLY'] = True
 app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
-app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=30) # 1 minute timeout for testing
 # DEBUG
 app.config['SESSION_COOKIE_SECURE'] = False # TODO: switch to True in production!!!
-# app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(seconds=15) # 1 minute timeout for testing
 
 login_manager = LoginManager()
 

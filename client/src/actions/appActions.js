@@ -1,5 +1,6 @@
 import {
   SET_AUTH,
+  SET_USER,
   CHANGE_FORM,
   SENDING_REQUEST,
   LOADING_AUTH,
@@ -89,10 +90,11 @@ export const loadMe = () => {
   return dispatch => {
     dispatch(loadingAuth(true))
     dispatch(setErrorMessage(''))
-    api('/api/authenticate')
+    api('/api/loadme')
       .then(data => {
         dispatch(loadingAuth(false))
         dispatch(setAuthState(data.isLoggedIn))
+        dispatch(setUser(data.user))
       })
       .catch(error => {
         // TODO: update me
@@ -108,7 +110,6 @@ export const logout = () => {
     dispatch(setErrorMessage(''))
     api('/api/logout')
       .then(data => {
-        console.log(data)
         dispatch(sendingRequest(false))
         dispatch(setAuthState(data.isLoggedIn))
       })
@@ -131,6 +132,10 @@ export const changeForm = newState => {
 
 const setAuthState = newState => {
   return { type: SET_AUTH, newState }
+}
+
+const setUser = user => {
+  return { type: SET_USER, user }
 }
 
 const sendingRequest = sending => {

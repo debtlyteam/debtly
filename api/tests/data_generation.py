@@ -8,7 +8,7 @@ from utils.user import User
 
 # hey it's us
 andrew = User('ajrae.nv@gmail.com', 'Andrew', 'Rae', None, ObjectId(b'some12charst'))
-dennis = User('dvidovicv@uwaterloo.ca', 'Dennis', 'Vidovic', None, ObjectId(b'sku10950a~02'))
+dennis = User('dennisvidovic@gmail.com', 'Dennis', 'Vidovic', None, ObjectId(b'sku10950a~02'))
 yusef = User('yazia@uwaterloo.ca', 'Yusef', 'Zia', None, ObjectId(b')@idsaLh#@la'))
 ethan = User('egoold@uwaterloo.ca', 'Ethan', 'Goold', None, ObjectId(b'kslk@)(ajkd@'))
 tom = User('tjkidd@uwaterloo.ca', 'Tom', 'Kidd', None, ObjectId(b')(*&djak_872'))

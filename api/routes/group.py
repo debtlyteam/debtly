@@ -18,8 +18,4 @@ def get_group(group_id):
     # HACK: temporary data generation
     ret_data['group'] = group.serialize()
 
-    # TODO: get rid of these
-    print("group ret_data:")
-    print(ret_data)
-
     return ret_data, HTTPStatus.OK
