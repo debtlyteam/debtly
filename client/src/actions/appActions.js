@@ -72,7 +72,6 @@ export const loadData = (path, name) => {
     dispatch(setErrorMessage(''))
     api(`/api${path}`)
       .then(data => {
-        console.log(data)
         dispatch(sendingRequest(false))
         dispatch(setData({ [name]: data }))
       })
@@ -131,7 +130,6 @@ export const changeForm = newState => {
 }
 
 const setAuthState = newState => {
-  console.log('newState: ' + newState)
   return { type: SET_AUTH, newState }
 }
 

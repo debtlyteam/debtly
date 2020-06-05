@@ -13,6 +13,7 @@ import 'App.css'
 import ProtectedRoute from 'components/ProtectedRoute'
 import theme from 'components/Theme'
 import { ThemeProvider } from '@material-ui/core'
+import SideBar from './components/SideBar'
 
 class App extends React.Component {
   componentDidMount () {
@@ -31,7 +32,8 @@ class App extends React.Component {
 
     return (
       <ThemeProvider theme={theme}>
-        <Router>
+      <SideBar/>
+      <Router>
           <div>
             {!loadingAuth && (
               <div>

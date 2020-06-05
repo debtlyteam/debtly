@@ -6,7 +6,6 @@ import PropTypes from 'prop-types'
 
 const ProtectedRoute = (props) => (
   <Route {...props.isLoggedIn} render={() => {
-    console.log(props.isLoggedIn)
     if (props.isLoggedIn === true) {
       return (
         <div>{props.children}</div>
