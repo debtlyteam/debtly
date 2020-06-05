@@ -12,11 +12,9 @@ import { login, register, setErrorMessage } from 'actions/appActions'
 
 class LoginContainer extends React.Component {
   // TODO
-  /*eslint-disable */
-  UNSAFE_componentWillMount () {
+  componentDidMount () {
     this.props.clearErrors()
   }
-  /* eslint-enable */
 
   static get propTypes () {
     return {

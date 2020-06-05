@@ -127,7 +127,6 @@ class LoginView extends Component {
             >
               <Collapse in={this.state.tryRegister}>
                 <Grid container direction='row'
-                 justify="left"
                  alignItems="center"
                  spacing={3}
                  >

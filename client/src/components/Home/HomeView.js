@@ -5,8 +5,7 @@ import LedgerView from '../LedgerView'
 
 const HomeView = ({ group, ledger, currentlySending, errorMessage }) => (
   <div>
-    <h2>Welcome to this amazing site!</h2>
-    <LedgerView ledger={ledger} />
+    <LedgerView ledger={ledger} group={group}/>
     <div><pre>{JSON.stringify(group, null, 2) }</pre></div>
     <div><pre>{JSON.stringify(ledger, null, 2) }</pre></div>
     <LoadingView currentlySending={currentlySending} />
