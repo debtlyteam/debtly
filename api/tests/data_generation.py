@@ -47,17 +47,17 @@ for i in range(num_transactions):
         owed = div * (num_involved - 1)
     split = {}
     # dict by email for now,
-    split[ower.get_id()] = owed
+    split[ower.email] = owed
     for user in involved:
         if user != ower:
-            split[user.get_id()] = -div
+            split[user.email] = -div
 
-    transaction = Transaction(ower.get_id(),
+    transaction = Transaction(ower.email,
                               amount,
                               split,
-                              desc="This is test data",
-                              num=i+1,
-                              date=datetime.today())
+                              desc = "This is test data",
+                              num = i+1,
+                              date = datetime.today())
     transactions.append(transaction)
 
 transactions.reverse()
