@@ -5,6 +5,7 @@
   "dependencies": {
   },
   "scripts": {
+    "client": "cd ./client && yarn",
     "start": "cd ./client && yarn start",
     "start-api": "cd ./api && venv/bin/flask run --no-debugger",
     "lint": "npx eslint client/src/",
