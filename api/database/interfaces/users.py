@@ -1,9 +1,5 @@
 # Database interface for users
-from utils.user import User
-from database.templates import Users as UserDoc
-from bson import ObjectId
-import mongoengine
-
+from database.interfaces.includes import *
 
 # Adds a user to the database
 #
