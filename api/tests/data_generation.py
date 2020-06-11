@@ -61,3 +61,10 @@ for i in range(num_transactions):
     transactions.append(transaction)
 
 transactions.reverse()
+
+# fake summary
+# TODO: make a summary solver and test it here
+summary = {}
+summary[andrew.email] = -666
+summary[dennis.email] = 420
+summary[ethan.email] = 69
