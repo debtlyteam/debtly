@@ -1,4 +1,4 @@
-from flask import Blueprint, request, session
+from flask import Blueprint, request
 from http import HTTPStatus
 from flask_login import login_required, current_user, login_user, logout_user
 from database.interface import add_user, get_user
@@ -21,7 +21,7 @@ def login():
         user = get_user(email=json['email'])
         if user and verify_password(user.password, json['password']):
             login_user(user)
-            ret_data['user'] = user.site_data()
+            ret_data['user'] = user.serialize()
             return ret_data, HTTPStatus.OK
     return ret_data, HTTPStatus.UNAUTHORIZED
 

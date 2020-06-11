@@ -8,6 +8,7 @@ from flask_login import UserMixin
 # password: (optional) the encoded password used to authenticate the User
 # id_num: (optional) the unique id number associated with this iser
 class User(UserMixin):
+    # TODO: refactor with kwargs
     def __init__(self, email, first_name = None, last_name = None, password = None, id_num = None):
         self.email = email
         self.first_name = first_name
@@ -19,10 +20,11 @@ class User(UserMixin):
     def get_id(self):
         return str(self.id_num)
 
-    # function that returns data for the site to read, ie general user info
+    # function that serializes the site-safe data for http requests
     # obviously this should not return the password, in any form
-    def site_data(self):
-        site_data = {}
-        site_data['name'] = self.first_name
-        site_data['email'] = self.email
-        return site_data
+    def serialize(self):
+        json = {}
+        json['name'] = self.first_name
+        json['email'] = self.email
+        json['id'] = self.get_id() # TODO: hash this
+        return json
