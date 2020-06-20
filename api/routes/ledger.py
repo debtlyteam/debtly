@@ -13,6 +13,7 @@ ledgerRoutes = Blueprint('ledger_routes', __name__)
 
 # Route to get a list of the ledgers transactions
 # usage (note that <root> is likely going to be <host>/api/ledger):
+# TODO: update this usage blurb
 # <root>/<group_id>/ --> returns the latest 50 transactions for that group
 # <root>/<group_id>/?offset=<offset> --> returns 50 transactions after the offset
 # <root>/<group_id>/?total=<total> --> returns the latest <total> transactions after the offset
@@ -22,8 +23,11 @@ ledgerRoutes = Blueprint('ledger_routes', __name__)
 @login_required
 def get_transactions(group_id):
     ret_data = {}
-    offset = request.args.get('offset', default = 0, type = int)
+    page = request.args.get('page', default = 0, type = int)
     total = request.args.get('total', default = 50, type = int)
+    offset = page * total;
     # HACK: temporary generation of transactions
     ret_data['transactions'] = [t.serialize() for t in transactions[offset:offset+total]]
+    ret_data['page'] = page
+    ret_data['totalItems'] = len(transactions)
     return ret_data, HTTPStatus.OK
