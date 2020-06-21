@@ -1,22 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import MenuIcon from '@material-ui/icons/Menu';
+import MenuIcon from '@material-ui/icons/Menu'
 import { AppBar, Toolbar, IconButton } from '@material-ui/core'
 
 class SideBar extends React.Component {
-
-  render(){
+  render () {
     return (
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton edge="start" aria-label="menu" color='inherit'>
-              <MenuIcon/>
-            </IconButton>
-          </Toolbar>
-        </AppBar>
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton edge="start" aria-label="menu" color='inherit'>
+            <MenuIcon/>
+          </IconButton>
+        </Toolbar>
+      </AppBar>
     )
   }
-
 }
 
-export default SideBar;
+export default SideBar

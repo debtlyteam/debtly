@@ -32,8 +32,8 @@ class App extends React.Component {
 
     return (
       <ThemeProvider theme={theme}>
-      <SideBar/>
-      <Router>
+        <SideBar/>
+        <Router>
           <div>
             {!loadingAuth && (
               <div>

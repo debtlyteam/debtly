@@ -156,3 +156,5 @@ const api = path => {
     else throw new Error(res.status)
   })
 }
+
+export default api

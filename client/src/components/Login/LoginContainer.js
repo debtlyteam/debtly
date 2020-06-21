@@ -36,7 +36,7 @@ class LoginContainer extends React.Component {
       currentlySending,
       formState,
       errorMessage,
-      clearErrors,
+      clearErrors
     } = this.props
 
     return (

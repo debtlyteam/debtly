@@ -77,7 +77,7 @@ class LoginView extends Component {
       handleRegister: PropTypes.func,
       handleLogin: PropTypes.func,
       errorMessage: PropTypes.string,
-      clearErrors: PropTypes.func,
+      clearErrors: PropTypes.func
     }
   }
 
@@ -90,9 +90,9 @@ class LoginView extends Component {
     }
   }
 
-  setTryRegister(newState) {
+  setTryRegister (newState) {
     this.props.clearErrors()
-    this.setState({tryRegister : newState})
+    this.setState({ tryRegister: newState })
   }
 
   render () {
@@ -127,33 +127,33 @@ class LoginView extends Component {
             >
               <Collapse in={this.state.tryRegister}>
                 <Grid container direction='row'
-                 alignItems="center"
-                 spacing={3}
-                 >
+                  alignItems="center"
+                  spacing={3}
+                >
                   <Grid item xs={6}>
-                <TextField
-                  className={classes.textEntry}
-                  variant='outlined'
-                  required={this.state.tryRegister}
-                  fullWidth
-                  id='firstname'
-                  label='First Name'
-                  onChange = {(event) => {
-                    this.setState({ firstName: event.target.value })
-                  }}
-                />
+                    <TextField
+                      className={classes.textEntry}
+                      variant='outlined'
+                      required={this.state.tryRegister}
+                      fullWidth
+                      id='firstname'
+                      label='First Name'
+                      onChange = {(event) => {
+                        this.setState({ firstName: event.target.value })
+                      }}
+                    />
                   </Grid>
                   <Grid item xs={6}>
-                <TextField
-                  className={classes.textEntry}
-                  variant='outlined'
-                  fullWidth
-                  id='lastname'
-                  label='Last Name'
-                  onChange = {(event) => {
-                    this.setState({ lastName: event.target.value })
-                  }}
-                />
+                    <TextField
+                      className={classes.textEntry}
+                      variant='outlined'
+                      fullWidth
+                      id='lastname'
+                      label='Last Name'
+                      onChange = {(event) => {
+                        this.setState({ lastName: event.target.value })
+                      }}
+                    />
                   </Grid>
                 </Grid>
               </Collapse>
@@ -214,7 +214,7 @@ class LoginView extends Component {
                   variant="outlined"
                   color="primary"
                   onClick={(e) => {
-                    this.setTryRegister(true);
+                    this.setTryRegister(true)
                   }}
                 >
             Create new account
