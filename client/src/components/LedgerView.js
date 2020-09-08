@@ -44,6 +44,10 @@ const tableIcons = {
 
 const styles = theme => (
   {
+    root: {
+      flexGrow: 1,
+      margin: "10px 10px 20px",
+    },
     redText: {
       color: 'red',
       fontWeight: 'bold'
@@ -151,6 +155,8 @@ class LedgerView extends React.Component {
     const title = 'Transactions for ' + groupName
 
     return (
+      
+      <div className={classes.root}>
       <Container maxWidth='xl'>
         <MaterialTable
           icons={tableIcons}
@@ -200,9 +206,6 @@ class LedgerView extends React.Component {
                 <div className={classes.splitRoot}>
                   <Grid container direction='column' spacing={3}>
                     <Grid container spacing={3}>
-                      <Grid item xs>
-                        {this.renderSplitColumn(rowData.split[user.email])}
-                      </Grid>
                       <Grid item>
                         <IconButton
                           onClick={() => {
@@ -211,6 +214,9 @@ class LedgerView extends React.Component {
                         >
                           {this.state.expandRow[rowData.tableData.id] ? <ExpandLessIcon/> : <ExpandMoreIcon/>}
                         </IconButton>
+                      </Grid>
+                      <Grid item xs>
+                        {this.renderSplitColumn(rowData.split[user.email])}
                       </Grid>
                     </Grid>
                     <Collapse in={
@@ -227,7 +233,7 @@ class LedgerView extends React.Component {
           ]}
 
         />
-      </Container>
+      </Container></div>
     )
   }
 }

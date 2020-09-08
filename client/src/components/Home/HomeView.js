@@ -2,9 +2,11 @@ import React from 'react'
 import ErrorBox from 'components/ErrorBox'
 import LoadingView from 'components/LoadingView'
 import LedgerView from '../LedgerView'
+import AddTransactions from '../AddTransaction'
 
 const HomeView = ({ user, group, ledger, currentlySending, errorMessage }) => (
   <div>
+    <AddTransactions></AddTransactions>
     <LedgerView ledger={ledger} group={group} user={user}/>
     <div><pre>{JSON.stringify(user, null, 2) }</pre></div>
     <div><pre>{JSON.stringify(group, null, 2) }</pre></div>
