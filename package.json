@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "recompose": "^0.30.0"
   },
   "scripts": {
     "client": "cd ./client && yarn",
