@@ -44,7 +44,7 @@ export default function ErrorBox (props) {
               <Error/>
             </Icon>
             <Typography className={classes.text}>
-              {props.message}
+              {message}
             </Typography>
           </Grid>
         </Box>

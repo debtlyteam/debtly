@@ -30,7 +30,7 @@ const initialState = {
   }
 }
 
-export const homeReducer = (state = initialState, action) => {
+export const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case CHANGE_FORM:
       return changeForm(state, action)
