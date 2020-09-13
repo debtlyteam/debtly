@@ -12,7 +12,7 @@ export const login = (email, password) => {
   return dispatch => {
     dispatch(sendingRequest(true))
     dispatch(setErrorMessage(''))
-    fetch('/api/login', {
+    return fetch('/api/login', {
       headers: {
         'Content-Type': 'application/json'
       },
@@ -27,6 +27,7 @@ export const login = (email, password) => {
       .then(data => {
         dispatch(sendingRequest(false))
         dispatch(setAuthState(true))
+        dispatch(loadMe())
       })
       .catch(error => {
         // TODO: update me
@@ -41,7 +42,7 @@ export const register = (firstName, lastName, email, password) => {
   return dispatch => {
     dispatch(sendingRequest(true))
     dispatch(setErrorMessage(''))
-    fetch('/api/register', {
+    return fetch('/api/register', {
       headers: {
         'Content-Type': 'application/json'
       },
@@ -55,7 +56,10 @@ export const register = (firstName, lastName, email, password) => {
       })
       .then(data => {
         dispatch(sendingRequest(false))
-        if (!data.isRegistered) { dispatch(setErrorMessage('Failed to register, email in use')) }
+        if (!data.isRegistered) {
+          console.log('Failed to register!')
+          dispatch(setErrorMessage('Failed to register, email in use'))
+        }
       })
       .catch(error => {
         // TODO update me
@@ -71,7 +75,7 @@ export const loadData = (path, name) => {
     dispatch(setData({ [name]: '' }))
     dispatch(sendingRequest(true))
     dispatch(setErrorMessage(''))
-    api(`/api${path}`)
+    return api(`/api${path}`)
       .then(data => {
         dispatch(sendingRequest(false))
         dispatch(setData({ [name]: data }))
@@ -90,7 +94,7 @@ export const loadMe = () => {
   return dispatch => {
     dispatch(loadingAuth(true))
     dispatch(setErrorMessage(''))
-    api('/api/loadme')
+    return api('/api/loadme')
       .then(data => {
         dispatch(loadingAuth(false))
         dispatch(setAuthState(data.isLoggedIn))
@@ -108,7 +112,7 @@ export const logout = () => {
   return dispatch => {
     dispatch(sendingRequest(true))
     dispatch(setErrorMessage(''))
-    api('/api/logout')
+    return api('/api/logout')
       .then(data => {
         dispatch(sendingRequest(false))
         dispatch(setAuthState(data.isLoggedIn))
