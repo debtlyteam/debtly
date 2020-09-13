@@ -85,6 +85,9 @@ class LoginView extends Component {
     event.preventDefault()
     if (this.state.tryRegister) {
       this.handleRegister(this.state.firstName, this.state.lastName, this.state.email, this.state.password)
+        // TODO: add a some status to global state
+        // HACK: hacky test to check if register failed and change state accordingly
+        .then(() => this.setState({ tryRegister: this.props.errorMessage !== '' }))
     } else {
       this.handleLogin(this.state.email, this.state.password)
     }
