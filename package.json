@@ -1,0 +1,14 @@
+{
+  "name": "debtly",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+  },
+  "scripts": {
+    "client": "cd ./client && yarn",
+    "start": "cd ./client && yarn start",
+    "start-api": "cd ./api && venv/bin/flask run --no-debugger",
+    "lint": "npx eslint client/src/",
+    "build": "cd ./client && yarn build"
+  }
+}
