@@ -26,7 +26,8 @@ class Split(mongoengine.EmbeddedDocument):
 class Transactions(mongoengine.EmbeddedDocument):
     owed_user = mongoengine.ReferenceField(Users, required = True)
     cost = mongoengine.IntField(required = True)
-    transactions = mongoengine.EmbeddedDocumentListField(Split)
+    diffs = mongoengine.EmbeddedDocumentListField(Split)
+    description = mongoengine.StringField()
     timestamp = mongoengine.DateTimeField(default = datetime.utcnow)
 
 # Hold information when a from_user directly pays to_user user
@@ -38,7 +39,9 @@ class Repayments(mongoengine.EmbeddedDocument):
 
 # Represents a group of users sharing a ledger
 class Groups(mongoengine.Document):
+    name = mongoengine.StringField(max_length = 50)
     users = mongoengine.ListField(mongoengine.ReferenceField(Users), required = True)
+    admin = mongoengine.ReferenceField(Users, required = True)
     ledger = mongoengine.EmbeddedDocumentListField(Transactions)
     payments = mongoengine.EmbeddedDocumentListField(Repayments)
-
+    # TODO cache an overall split?

@@ -11,7 +11,7 @@ class Group():
     def __init__(self, name, users, **kwargs):
         self.name = name
         self.users = users
-
+        self.admin = kwargs['admin'] if 'admin' in kwargs else None
         self.num_transactions = kwargs['num_transactions'] if 'num_transactions' in kwargs else None
         self.id_num = kwargs['id_num'] if 'id_num' in kwargs else None
 
